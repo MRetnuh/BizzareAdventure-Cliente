@@ -7,15 +7,19 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import interfaces.GameController;
+
 public class HiloCliente extends Thread{
 	 	private DatagramSocket socket;
 	    private int servidorPort = 5555;
 	    private String ipServidorStr = "255.255.255.255";
 	    private InetAddress ipServidor;
 	    private boolean fin = false;
+	    private GameController gameController;
 	    
-	    public HiloCliente() {
+	    public HiloCliente(GameController gameController) {
 	        try {
+	        	this.gameController = gameController;
 	        	this.ipServidor = InetAddress.getByName(this.ipServidorStr);
 	            this.socket = new DatagramSocket();
 	        } catch (SocketException | UnknownHostException e) {
@@ -32,5 +36,64 @@ public class HiloCliente extends Thread{
 //	                throw new RuntimeException(e);
 	            }
 	        } while(!this.fin);
+	    }
+	    
+	    private void procesarMensaje(DatagramPacket packet) {
+	        String mensaje = (new String(packet.getData())).trim();
+	        String[] partes = mensaje.split(":");
+
+	        System.out.println("Mensaje recibido: " + mensaje);
+
+	        switch(partes[0]){
+	            case "Yaconectado":
+	                System.out.println("Ya estas conectado");
+	                break;
+	            case "Conectado":
+	                System.out.println("Conectado al servidor");
+	                this.ipServidor = packet.getAddress();
+	                //gameController.connect(Integer.parseInt(partes[1]));
+	                break;
+	            case "Lleno":
+	                System.out.println("Servidor lleno");
+	                this.fin = true;
+	                break;
+	            case "Empezar":
+	                this.gameController.empezar();
+	                break;
+	           /* case "UpdatePosition":
+	                switch(partes[1]){
+	                    case "Pad":
+	                        this.gameController.updatePadPosition(Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
+	                        break;
+	                    case "Ball":
+	                        this.gameController.updateBallPosition(Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
+	                        break;
+	                }
+	                break;
+	                */
+	            case "FinJuego":
+	                this.gameController.perder();
+	                break;
+	            case "Desconectado":
+	                this.gameController.volverAlMenu();
+	                break;
+	        }
+
+	    }
+
+	    public void sendMessage(String message) {
+	        byte[] byteMessage = message.getBytes();
+	        DatagramPacket packet = new DatagramPacket(byteMessage, byteMessage.length, this.ipServidor, this.servidorPort);
+	        try {
+	            this.socket.send(packet);
+	        } catch (IOException e) {
+	            throw new RuntimeException(e);
+	        }
+	    }
+
+	    public void terminate() {
+	        this.fin = true;
+	        this.socket.close();
+	        this.interrupt();
 	    }
 }
