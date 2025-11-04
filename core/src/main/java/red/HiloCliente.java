@@ -32,6 +32,7 @@ public class HiloCliente extends Thread{
 	            DatagramPacket paquete = new DatagramPacket(new byte[1024], 1024);
 	            try {
 	                this.socket.receive(paquete);
+	                procesarMensaje(paquete);
 	            } catch (IOException e) {
 //	                throw new RuntimeException(e);
 	            }
