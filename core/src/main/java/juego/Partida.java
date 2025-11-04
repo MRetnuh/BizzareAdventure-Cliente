@@ -15,6 +15,7 @@ import niveles.Nivel1;
 import niveles.Nivel2;
 import niveles.NivelBase;
 import personajes.Personaje;
+import red.HiloCliente;
 
 public class Partida implements Screen, GameController {
     private GestorDerrota gestorDerrota = new GestorDerrota();
@@ -33,6 +34,8 @@ public class Partida implements Screen, GameController {
     private final Game JUEGO;
     private boolean nivelIniciado  = false;
     private GestorNiveles gestorNiveles;
+    private HiloCliente hiloCliente;
+    private boolean finJuego = false;
     
     public Partida(Game juego, Musica musica) {
         this.JUEGO = juego;
@@ -44,6 +47,7 @@ public class Partida implements Screen, GameController {
         this.stageHUD = new Stage(new ScreenViewport(), this.batch);
         this.nivelActual = this.niveles[0];
         this.gestorNiveles = new GestorNiveles(juego, this.niveles, this.nivelActual);
+        this.hiloCliente = new HiloCliente(this);
         inicializarJugadores();
     }
 
@@ -63,6 +67,8 @@ public class Partida implements Screen, GameController {
         	    this.JUGADORES[this.JUGADOR2]);
 
         Gdx.input.setInputProcessor(this.inputController);
+        this.hiloCliente.start();
+        this.hiloCliente.sendMessage("Conectado");
     }
 
     @Override
@@ -129,13 +135,14 @@ public class Partida implements Screen, GameController {
         for (NivelBase nivel : this.niveles) nivel.dispose();
         if (this.gestorHUD != null) this.gestorHUD.dispose();
         this.batch.dispose();
+        this.hiloCliente.terminate();
         this.stage.dispose();
         if (this.skin != null) this.skin.dispose();
     }
 
     private void inicializarJugadores() {
     	for (int i = 0; i < this.JUGADORES.length; i++) {
-            this.JUGADORES[i] = new Jugador();
+            this.JUGADORES[i] = new Jugador(i + 1);
         }
     }
 
