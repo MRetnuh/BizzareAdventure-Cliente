@@ -64,7 +64,7 @@ public class HiloCliente extends Thread{
 	            case "UpdateState": // NUEVO CASO para recibir la actualización del servidor
 	                // Formato ejemplo: "UpdateState:1:posX1:posY1:vida1:estado1:2:posX2:posY2:vida2:estado2"
 	                // El servidor enviará la posición/estado de AMBOS jugadores.
-	                this.gameController.actualizarEstado(partes); // Llamas a un nuevo método en GameController
+	                this.gameController.actualizarEstado(partes);
 	                break;
 	            case "FinJuego":
 	                this.gameController.perder();

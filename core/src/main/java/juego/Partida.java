@@ -147,7 +147,7 @@ public class Partida implements Screen, GameController {
 
 	@Override
 	public void conectar(int numPlayer) {
-	    this.idJugadorLocal = numPlayer; // <-- Guardamos el 1 o el 2 asignado por el servidor
+	    this.idJugadorLocal = numPlayer;
 	}
 
 	@Override
@@ -158,21 +158,13 @@ public class Partida implements Screen, GameController {
 
 	@Override
 	public void perder() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void volverAlMenu() {
-		// TODO Auto-generated method stub
 		
 	}
-
-	// En juego.Partida.java (Cliente) -> actualizarEstado(String[] datos)
-
-	// En juego.Partida.java (Cliente)
-
-	// juego.Partida.java (Cliente) - Nuevo y corregido actualizarEstado
 
 	@Override
 	public void actualizarEstado(String[] datos) {
@@ -180,21 +172,24 @@ public class Partida implements Screen, GameController {
 
 	    // --- JUGADOR 1 (Índice 0) ---
 	    Personaje p1 = this.JUGADORES[this.JUGADOR1].getPersonajeElegido();
-	    float p1X = Float.parseFloat(datos[2].replace(',', '.')); 
-	    float p1Y = Float.parseFloat(datos[3].replace(',', '.'));
+	    float p1X = Float.parseFloat(datos[2]); 
+	    float p1Y = Float.parseFloat(datos[3]);
 	    
 	    // --- JUGADOR 2 (Índice 1) ---
 	    Personaje p2 = this.JUGADORES[this.JUGADOR2].getPersonajeElegido();
-	    float p2X = Float.parseFloat(datos[7].replace(',', '.')); 
-	    float p2Y = Float.parseFloat(datos[8].replace(',', '.'));
+	    float p2X = Float.parseFloat(datos[7]); 
+	    float p2Y = Float.parseFloat(datos[8]);
 
 	    if (this.idJugadorLocal == 1) { 
 	        // 1. Soy J1: Actualizo al J2 (oponente)
 	        p2.setX(p2X);
 	        p2.setY(p2Y);
+	        p2.setVida(Integer.parseInt(datos[9]));
+	        
 	        // 2. Soy J1: Corrijo/Sincronizo al J1 (local)
 	        p1.setX(p1X);
 	        p1.setY(p1Y);
+	        p1.setVida(Integer.parseInt(datos[4]));
 	    }
 	    else if (this.idJugadorLocal == 2){
 	        // 1. Soy J2: Actualizo al J1 (oponente)
@@ -203,9 +198,17 @@ public class Partida implements Screen, GameController {
 	        // 2. Soy J2: Corrijo/Sincronizo al J2 (local)
 	        p2.setX(p2X);
 	        p2.setY(p2Y);
+	        p2.setVida(Integer.parseInt(datos[9]));
+	        p1.setVida(Integer.parseInt(datos[4]));
 	    }
 	    
 	    // Nota: Deberías incluir también la actualización de vida y estado aquí.
+	}
+
+	@Override
+	public void asignarPersonajes(int personajeIndice) {
+		// TODO Auto-generated method stub
+		
 	}
 	    
 	    // Nota: Ya no es necesario el condicional basado en this.JUGADORES[this.JUGADOR1].getNumPlayer(

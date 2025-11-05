@@ -254,6 +254,10 @@ public abstract class Personaje extends Actor {
     	this.velocidadCaida = v; 
     	}
     
+    public void setVida(int vida) {
+    	this.vida = vida;
+    }
+    
     public void reducirVida() {
         this.vida--;
         if(this.vida <= 0) {
