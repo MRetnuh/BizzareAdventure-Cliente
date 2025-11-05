@@ -1,6 +1,7 @@
 package juego;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -36,6 +37,7 @@ public class Partida implements Screen, GameController {
     private GestorNiveles gestorNiveles;
     private HiloCliente hiloCliente;
     private boolean finJuego = false;
+    private boolean juegoEmpezado = false; // Añadir esta variable
     
     public Partida(Game juego, Musica musica) {
         this.JUEGO = juego;
@@ -73,7 +75,15 @@ public class Partida implements Screen, GameController {
 
     @Override
     public void render(float delta) {
-
+    	if (!this.juegoEmpezado) {
+            // Lógica para dibujar una pantalla de espera o un mensaje en el HUD
+            Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            // Dibuja un mensaje: "Esperando al otro jugador..." usando tu Stage/SpriteBatch
+            this.stageHUD.act(delta);
+            this.stageHUD.draw();
+            return; // Detiene el resto del renderizado y el envío de inputs.
+        }
     	int jugadorLocalIndex = this.JUGADORES[this.JUGADOR1].getNumPlayer(); // Asumiendo que el 1 es el local por ahora, esto debe ser dinámico
 
     	String mensajeInput = "Mover:" + jugadorLocalIndex + ":" + this.inputController.generarMensajeInput();
@@ -141,7 +151,7 @@ public class Partida implements Screen, GameController {
 
 	@Override
 	public void empezar() {
-		// TODO Auto-generated method stub
+		this.juegoEmpezado = true;
 		
 	}
 
