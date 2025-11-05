@@ -8,7 +8,7 @@ import pantallas.Opciones;
 import personajes.Personaje;
 import juego.Partida;
 
-public class GestorInputs {
+/*public class GestorInputs {
 
     public static void procesarInputs(Personaje personaje1, Personaje personaje2, InputController inputController,
     Musica musicaPartida, NivelBase nivelActual, float delta, Game juego, Partida partidaActual) {
@@ -51,4 +51,5 @@ public class GestorInputs {
             inputController.setOpcionesFalso2();
         }
     }
-}
+    
+}*/

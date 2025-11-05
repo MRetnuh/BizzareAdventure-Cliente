@@ -74,14 +74,11 @@ public class Partida implements Screen, GameController {
     @Override
     public void render(float delta) {
 
-        GestorInputs.procesarInputs(this.JUGADORES[this.JUGADOR1].getPersonajeElegido(),
-        this.JUGADORES[this.JUGADOR2].getPersonajeElegido(), this.inputController,
-        this.musicaPartida, this.nivelActual, delta, this.JUEGO, this);
+    	int jugadorLocalIndex = this.JUGADORES[this.JUGADOR1].getNumPlayer(); // Asumiendo que el 1 es el local por ahora, esto debe ser dinámico
 
-        actualizarPersonaje(this.JUGADORES[this.JUGADOR1], this.JUGADORES[this.JUGADOR1].getPersonajeElegido(), delta, true);
-
-        actualizarPersonaje(this.JUGADORES[this.JUGADOR2], this.JUGADORES[this.JUGADOR2].getPersonajeElegido(), delta, false);
-
+    	String mensajeInput = "Mover:" + jugadorLocalIndex + ":" + this.inputController.generarMensajeInput();
+        this.hiloCliente.sendMessage(mensajeInput);
+    	this.hiloCliente.sendMessage(mensajeInput);
         GestorCamara.actualizar(this.camara, this.JUGADORES[this.JUGADOR1].getPersonajeElegido(),
         this.JUGADORES[this.JUGADOR2].getPersonajeElegido(), this.nivelActual.getAnchoMapa(), this.nivelActual.getAlturaMapa());
 
@@ -113,21 +110,6 @@ public class Partida implements Screen, GameController {
             this.inputController.resetearInputs(); 
         }
         Gdx.input.setInputProcessor(null);
-    }
-
-    private void actualizarPersonaje(Jugador jugador, Personaje personaje, float delta, boolean esJugador1) {
-        this.gestorDerrota.manejarMuerteJugador(personaje, esJugador1, this.musicaPartida, this.stageHUD);
-        if (this.gestorDerrota.partidaTerminada()) return;
-
-        GestorCombate.procesarCombate(personaje, this.nivelActual, this.musicaPartida, delta);
-
-        GestorGravedad.aplicarGravedad(personaje, delta, this.nivelActual);
-
-        GestorMovimiento.aplicarMovimiento(personaje, delta, this.nivelActual, this.JUGADORES, this.JUGADOR1, this.JUGADOR2,
-	    esJugador1);
-
-        GestorInteracciones.procesarGolpeCaja(personaje, jugador, esJugador1,
-        this.nivelActual, this.stage, this.gestorHUD, this.JUGADORES);
     }
 
     @Override
@@ -174,4 +156,25 @@ public class Partida implements Screen, GameController {
 		// TODO Auto-generated method stub
 		
 	}
+
+	// Dentro de Partida.java (Cliente) -> actualizarEstado(String[] datos)
+
+	@Override
+	public void actualizarEstado(String[] datos) {
+	    // Formato: [0:UpdateState, 1:1, 2:posX1, 3:posY1, 4:vida1, 5:ESTADO1, 6:2, 7:posX2, 8:posY2, 9:vida2, 10:ESTADO2]
+
+		if(this.JUGADORES[this.JUGADOR1].getNumPlayer() == 1) {
+	    Personaje p1 = this.JUGADORES[this.JUGADOR1].getPersonajeElegido();
+	    p1.setX(Float.parseFloat(datos[2])); // posX1
+	    p1.setY(Float.parseFloat(datos[3])); // posY1
+	    // p1.setVida(Integer.parseInt(datos[4])); // Si tienes un setVida(int)
+		}
+		else if(this.JUGADORES[this.JUGADOR1].getNumPlayer() == 2){
+	    // ACTUALIZAR JUGADOR 2
+	    Personaje p2 = this.JUGADORES[this.JUGADOR2].getPersonajeElegido();
+	    p2.setX(Float.parseFloat(datos[7])); // posX2
+	    p2.setY(Float.parseFloat(datos[8])); // posY2
+	    // p2.setVida(Integer.parseInt(datos[9])); // Si tienes un setVida(int)
+	}
+}
 }

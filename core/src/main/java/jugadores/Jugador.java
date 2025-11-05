@@ -45,4 +45,9 @@ public class Jugador {
     public boolean getPartidaEmpezada() {
         return this.partidaEmpezada;
     }
+
+	public int getNumPlayer() {
+		// TODO Auto-generated method stub
+		return id;
+	}
 }

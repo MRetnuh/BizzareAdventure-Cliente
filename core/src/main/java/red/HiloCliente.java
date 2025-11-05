@@ -61,17 +61,11 @@ public class HiloCliente extends Thread{
 	            case "Empezar":
 	                this.gameController.empezar();
 	                break;
-	           /* case "UpdatePosition":
-	                switch(partes[1]){
-	                    case "Pad":
-	                        this.gameController.updatePadPosition(Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
-	                        break;
-	                    case "Ball":
-	                        this.gameController.updateBallPosition(Integer.parseInt(parts[2]), Integer.parseInt(parts[3]));
-	                        break;
-	                }
+	            case "UpdateState": // NUEVO CASO para recibir la actualización del servidor
+	                // Formato ejemplo: "UpdateState:1:posX1:posY1:vida1:estado1:2:posX2:posY2:vida2:estado2"
+	                // El servidor enviará la posición/estado de AMBOS jugadores.
+	                this.gameController.actualizarEstado(partes); // Llamas a un nuevo método en GameController
 	                break;
-	                */
 	            case "FinJuego":
 	                this.gameController.perder();
 	                break;

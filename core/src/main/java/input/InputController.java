@@ -14,11 +14,6 @@ public class InputController implements InputProcessor {
     private boolean izquierda1 = false;
     private boolean atacar1 = false;
     private boolean opciones1 = false;
-    private boolean saltar2 = false;
-    private boolean derecha2 = false;
-    private boolean izquierda2 = false;
-    private boolean atacar2 = false;
-    private boolean opciones2 = false;
     public InputController() {
 }
 
@@ -40,36 +35,15 @@ public class InputController implements InputProcessor {
                 this.izquierda1 = false;
                 this.derecha1 = false;
                 this.atacar1 = false;
-                this.saltar2 = false;
-                this.izquierda2 = false;
-                this.derecha2 = false;
-                this.atacar2 = false;
                 break;
             case (Input.Keys.K):
                 this.atacar1 = true;
-                break;
-            case (Input.Keys.RIGHT):
-                this.derecha2 = true;
-                break;
-            case (Input.Keys.LEFT):
-                this.izquierda2 = true;
-                break;
-            case (Input.Keys.UP):
-                this.saltar2 = true;
-                break;
-            case (Input.Keys.M):
-                this.atacar2 = true;
                 break;
             case (Input.Keys.O):
             	this.saltar1 = false;
             	this.izquierda1 = false;
             	this.derecha1 = false;
             	this.atacar1 = false;
-                this.opciones2 = true;
-                this.saltar2 = false;
-                this.izquierda2 = false;
-                this.derecha2 = false;
-                this.atacar2 = false;
         }
             return false;
         }
@@ -87,18 +61,15 @@ public class InputController implements InputProcessor {
             case (Input.Keys.W):
                 this.saltar1 = false;
                 break;
-            case (Input.Keys.RIGHT):
-                this.derecha2 = false;
-                break;
-            case (Input.Keys.LEFT):
-                this.izquierda2 = false;
-                break;
-            case (Input.Keys.UP):
-                this.saltar2 = false;
-                break;
 
         }
         return false;
+    }
+    
+    public String generarMensajeInput() {
+        // Formato: "Input:DERECHA_bool:IZQUIERDA_bool:SALTAR_bool:ATACAR_bool"
+        // Ejemplo: "Input:true:false:false:true"
+        return "Input:" + this.derecha1 + ":" + this.izquierda1 + ":" + this.saltar1 + ":" + this.atacar1;
     }
 
 
@@ -120,12 +91,6 @@ public class InputController implements InputProcessor {
 	    saltar1 = false;
 	    atacar1 = false;
 	    opciones1 = false;
-
-	    derecha2 = false;
-	    izquierda2 = false;
-	    saltar2 = false;
-	    atacar2 = false;
-	    opciones2 = false;
 	}
 
 	
@@ -148,40 +113,13 @@ public class InputController implements InputProcessor {
     public void setAtacarFalso1() {
         this.atacar1 = false;
     }
-    
-    public void setAtacarFalso2() {
-        this.atacar2 = false;
-    }
-    
     public boolean getOpciones1() {
         return  this.opciones1;
     }
 
-    public boolean getOpciones2() {
-        return  this.opciones2;
-    }
-
-    public boolean getSaltar2() {
-        return  this.saltar2;
-    }
-
-    public boolean getDerecha2() {
-        return  this.derecha2;
-    }
-
-    public boolean getIzquierda2() {
-        return  this.izquierda2;
-    }
-
-    public boolean getAtacar2() {
-        return  this.atacar2;
-    }
-
+   
 	public void setOpcionesFalso1() {
 		this.opciones1 = false;
 	}
 	
-	public void setOpcionesFalso2() {
-		this.opciones2 = false;
-	}
 }
