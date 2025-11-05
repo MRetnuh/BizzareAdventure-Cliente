@@ -37,7 +37,8 @@ public class Partida implements Screen, GameController {
     private GestorNiveles gestorNiveles;
     private HiloCliente hiloCliente;
     private boolean finJuego = false;
-    private boolean juegoEmpezado = false; // Añadir esta variable
+    private boolean juegoEmpezado = false; 
+    private int idJugadorLocal = 0;
     
     public Partida(Game juego, Musica musica) {
         this.JUEGO = juego;
@@ -84,7 +85,7 @@ public class Partida implements Screen, GameController {
             this.stageHUD.draw();
             return; // Detiene el resto del renderizado y el envío de inputs.
         }
-    	int jugadorLocalIndex = this.JUGADORES[this.JUGADOR1].getNumPlayer(); // Asumiendo que el 1 es el local por ahora, esto debe ser dinámico
+    	int jugadorLocalIndex = this.idJugadorLocal; // Asumiendo que el 1 es el local por ahora, esto debe ser dinámico
 
     	String mensajeInput = "Mover:" + jugadorLocalIndex + ":" + this.inputController.generarMensajeInput();
         this.hiloCliente.sendMessage(mensajeInput);
@@ -145,8 +146,7 @@ public class Partida implements Screen, GameController {
 
 	@Override
 	public void conectar(int numPlayer) {
-		// TODO Auto-generated method stub
-		
+	    this.idJugadorLocal = numPlayer; // <-- Guardamos el 1 o el 2 asignado por el servidor
 	}
 
 	@Override
@@ -167,22 +167,30 @@ public class Partida implements Screen, GameController {
 		
 	}
 
+	// En juego.Partida.java (Cliente) -> actualizarEstado(String[] datos)
+
 	@Override
 	public void actualizarEstado(String[] datos) {
 	    // Formato: [0:UpdateState, 1:1, 2:posX1, 3:posY1, 4:vida1, 5:ESTADO1, 6:2, 7:posX2, 8:posY2, 9:vida2, 10:ESTADO2]
 
-		if(this.JUGADORES[this.JUGADOR1].getNumPlayer() == 1) {
-	    Personaje p1 = this.JUGADORES[this.JUGADOR1].getPersonajeElegido();
-	    p1.setX(Float.parseFloat(datos[2])); // posX1
-	    p1.setY(Float.parseFloat(datos[3])); // posY1
-	    // p1.setVida(Integer.parseInt(datos[4])); // Si tienes un setVida(int)
-		}
-		else if(this.JUGADORES[this.JUGADOR1].getNumPlayer() == 2){
-	    // ACTUALIZAR JUGADOR 2
-	    Personaje p2 = this.JUGADORES[this.JUGADOR1].getPersonajeElegido();
-	    p2.setX(Float.parseFloat(datos[7])); // posX2
-	    p2.setY(Float.parseFloat(datos[8])); // posY2
-	    // p2.setVida(Integer.parseInt(datos[9])); // Si tienes un setVida(int)
+	    if (this.idJugadorLocal == 1) { 
+	        // Eres el Jugador 1. Actualiza al Jugador 2 (índice JUGADOR2=1 en el array local)
+	        Personaje p2 = this.JUGADORES[this.JUGADOR2].getPersonajeElegido();
+	        // Los datos del Jugador 2 están en los índices 7 (X) y 8 (Y) del array 'datos'
+	        p2.setX(Float.parseFloat(datos[7])); 
+	        p2.setY(Float.parseFloat(datos[8])); 
+	        // p2.setVida(Integer.parseInt(datos[9]));
+	    }
+	    else if (this.idJugadorLocal == 2){
+	        // Eres el Jugador 2. Actualiza al Jugador 1 (índice JUGADOR1=0 en el array local)
+	        Personaje p1 = this.JUGADORES[this.JUGADOR1].getPersonajeElegido();
+	        // Los datos del Jugador 1 están en los índices 2 (X) y 3 (Y) del array 'datos'
+	        p1.setX(Float.parseFloat(datos[2])); 
+	        p1.setY(Float.parseFloat(datos[3])); 
+	        // p1.setVida(Integer.parseInt(datos[4]));
+	    }
+	    
+	    // Nota: Ya no es necesario el condicional basado en this.JUGADORES[this.JUGADOR1].getNumPlayer()
 	}
-}
+
 }

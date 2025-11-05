@@ -52,7 +52,7 @@ public class HiloCliente extends Thread{
 	            case "Conectado":
 	                System.out.println("Conectado al servidor");
 	                this.ipServidor = packet.getAddress();
-	                //gameController.connect(Integer.parseInt(partes[1]));
+	                gameController.conectar(Integer.parseInt(partes[1]));
 	                break;
 	            case "Lleno":
 	                System.out.println("Servidor lleno");
