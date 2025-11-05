@@ -167,8 +167,6 @@ public class Partida implements Screen, GameController {
 		
 	}
 
-	// Dentro de Partida.java (Cliente) -> actualizarEstado(String[] datos)
-
 	@Override
 	public void actualizarEstado(String[] datos) {
 	    // Formato: [0:UpdateState, 1:1, 2:posX1, 3:posY1, 4:vida1, 5:ESTADO1, 6:2, 7:posX2, 8:posY2, 9:vida2, 10:ESTADO2]
@@ -181,7 +179,7 @@ public class Partida implements Screen, GameController {
 		}
 		else if(this.JUGADORES[this.JUGADOR1].getNumPlayer() == 2){
 	    // ACTUALIZAR JUGADOR 2
-	    Personaje p2 = this.JUGADORES[this.JUGADOR2].getPersonajeElegido();
+	    Personaje p2 = this.JUGADORES[this.JUGADOR1].getPersonajeElegido();
 	    p2.setX(Float.parseFloat(datos[7])); // posX2
 	    p2.setY(Float.parseFloat(datos[8])); // posY2
 	    // p2.setVida(Integer.parseInt(datos[9])); // Si tienes un setVida(int)
