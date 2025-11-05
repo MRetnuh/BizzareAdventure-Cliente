@@ -138,6 +138,49 @@ public class Partida implements Screen, GameController {
             this.JUGADORES[i] = new Jugador(i + 1);
         }
     }
+    
+    private void aplicarPrediccionLocal(float delta) {
+        
+        int arrayIndex = this.idJugadorLocal - 1; // ID 1 -> índice 0 (JUGADOR1), ID 2 -> índice 1 (JUGADOR2)
+        if (arrayIndex < 0 || arrayIndex >= JUGADORES.length) return;
+        
+        Personaje personajeLocal = this.JUGADORES[arrayIndex].getPersonajeElegido();
+        
+        if (personajeLocal.getVida() <= 0) return;
+        
+        // --- Lógica de Input y Ataque (Adaptada de GestorInputs) ---
+        // 1. Aplicar Inputs
+        personajeLocal.setMoviendoDerecha(this.inputController.getDerecha1());
+        personajeLocal.setMoviendoIzquierda(this.inputController.getIzquierda1());
+        personajeLocal.setEstaSaltando(this.inputController.getSaltar1());
+        
+        // 2. Aplicar Ataque (el cliente lo simula, el servidor lo resuelve)
+        if (this.inputController.getAtacar1()) {
+            personajeLocal.iniciarAtaque(this.musicaPartida.getVolumen(), delta, this.nivelActual);
+            this.inputController.setAtacarFalso1(); // Esto DEBE seguir aquí para ataques simples.
+        }
+        
+        // --- Lógica de Movimiento (Adaptada del flujo original) ---
+        
+        // Aplicar Gravedad
+        GestorGravedad.aplicarGravedad(personajeLocal, delta, this.nivelActual);
+        
+        // Aplicar Movimiento (Usamos el GestorMovimiento original pero sin la complejidad de red)
+        // NOTA: Para este caso, el parámetro 'esJugador1' debe ser el que corresponda al índice local
+        boolean esJugador1Local = (arrayIndex == this.JUGADOR1);
+        
+        GestorMovimiento.aplicarMovimiento(personajeLocal, delta, this.nivelActual, 
+                                           this.JUGADORES, this.JUGADOR1, this.JUGADOR2,
+                                           esJugador1Local, // Indica si el personaje a mover es el P1
+                                           this.inputController.getDerecha1(), // Inputs
+                                           this.inputController.getIzquierda1(),
+                                           this.inputController.getSaltar1());
+
+        // NOTA: Si GestorMovimiento sigue teniendo la antigua firma, usa:
+        // GestorMovimiento.aplicarMovimiento(personajeLocal, delta, this.nivelActual, 
+        //                                    this.JUGADORES, this.JUGADOR1, this.JUGADOR2,
+        //                                    esJugador1Local);
+    }
 
     @Override public void resize(int width, int height) {}
     @Override public void pause() {}
@@ -169,28 +212,32 @@ public class Partida implements Screen, GameController {
 
 	// En juego.Partida.java (Cliente) -> actualizarEstado(String[] datos)
 
+	// En juego.Partida.java (Cliente)
+
 	@Override
 	public void actualizarEstado(String[] datos) {
 	    // Formato: [0:UpdateState, 1:1, 2:posX1, 3:posY1, 4:vida1, 5:ESTADO1, 6:2, 7:posX2, 8:posY2, 9:vida2, 10:ESTADO2]
 
+	    // Usamos el ID asignado por el servidor (1 o 2) para saber quiénes somos.
 	    if (this.idJugadorLocal == 1) { 
-	        // Eres el Jugador 1. Actualiza al Jugador 2 (índice JUGADOR2=1 en el array local)
+	        // Soy el Jugador 1. Actualizo al Jugador 2 (índice 1 en el array local).
 	        Personaje p2 = this.JUGADORES[this.JUGADOR2].getPersonajeElegido();
-	        // Los datos del Jugador 2 están en los índices 7 (X) y 8 (Y) del array 'datos'
-	        p2.setX(Float.parseFloat(datos[7])); 
-	        p2.setY(Float.parseFloat(datos[8])); 
-	        // p2.setVida(Integer.parseInt(datos[9]));
+	        
+	        // Datos del Jugador 2 (índices 7 y 8)
+	        p2.setX(Float.parseFloat(datos[7].replace(',', '.'))); 
+	        p2.setY(Float.parseFloat(datos[8].replace(',', '.'))); 
 	    }
 	    else if (this.idJugadorLocal == 2){
-	        // Eres el Jugador 2. Actualiza al Jugador 1 (índice JUGADOR1=0 en el array local)
+	        // Soy el Jugador 2. Actualizo al Jugador 1 (índice 0 en el array local).
 	        Personaje p1 = this.JUGADORES[this.JUGADOR1].getPersonajeElegido();
-	        // Los datos del Jugador 1 están en los índices 2 (X) y 3 (Y) del array 'datos'
-	        p1.setX(Float.parseFloat(datos[2])); 
-	        p1.setY(Float.parseFloat(datos[3])); 
-	        // p1.setVida(Integer.parseInt(datos[4]));
+	        
+	        // Datos del Jugador 1 (índices 2 y 3)
+	        p1.setX(Float.parseFloat(datos[2].replace(',', '.'))); 
+	        p1.setY(Float.parseFloat(datos[3].replace(',', '.'))); 
 	    }
-	    
-	    // Nota: Ya no es necesario el condicional basado en this.JUGADORES[this.JUGADOR1].getNumPlayer()
+	    // NOTA: Incluí el .replace(',', '.') para evitar el error de formato decimal.
 	}
+	    
+	    // Nota: Ya no es necesario el condicional basado en this.JUGADORES[this.JUGADOR1].getNumPlayer(
 
 }
