@@ -79,17 +79,7 @@ public class Partida implements Screen, GameController {
         }
     	int jugadorLocalIndex = this.idJugadorLocal; // Asumiendo que el 1 es el local por ahora, esto debe ser dinámico
 
-    	GestorInputs.procesarInputs(
-    			this.JUGADORES[JUGADOR1].getPersonajeElegido(),
-    		    this.inputController,
-    		    this.musicaPartida,
-    		    this.nivelActual,
-    		    delta,
-    		    this.JUEGO,
-    		    this,
-    		    this.hiloCliente, // pasa el cliente de red si es cliente
-    		    jugadorLocalIndex
-    		);
+    	GestorInputs.procesarInputs(this.inputController,this.hiloCliente,jugadorLocalIndex);
         GestorCamara.actualizar(this.camara, this.JUGADORES[this.JUGADOR1].getPersonajeElegido(),
         this.JUGADORES[this.JUGADOR2].getPersonajeElegido(), this.nivelActual.getAnchoMapa(), this.nivelActual.getAlturaMapa());
 

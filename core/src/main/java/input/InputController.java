@@ -65,12 +65,6 @@ public class InputController implements InputProcessor {
         }
         return false;
     }
-    
-    public String generarMensajeInput() {
-        // Formato: "Input:DERECHA_bool:IZQUIERDA_bool:SALTAR_bool:ATACAR_bool"
-        // Ejemplo: "Input:true:false:false:true"
-        return "Input:" + this.derecha1 + ":" + this.izquierda1 + ":" + this.saltar1 + ":" + this.atacar1;
-    }
 
 
     @Override public boolean keyTyped(char character) { return false; }
