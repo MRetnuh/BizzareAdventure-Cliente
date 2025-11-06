@@ -17,8 +17,8 @@ public class Jugador {
     	this.id = id;
     }
 
-    public void generarPersonajeAleatorio() {
-        this.indicePersonaje = r.nextInt(this.personajesDisponibles.length);
+    public void asignarPersonaje(int indice) {
+        this.indicePersonaje = indice;
         this.elegido = this.personajesDisponibles[this.indicePersonaje];
         this.personajeElegido = this.elegido.crear();
         this.partidaEmpezada = true;

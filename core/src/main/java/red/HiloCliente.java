@@ -7,6 +7,8 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import com.badlogic.gdx.Gdx;
+
 import interfaces.GameController;
 
 public class HiloCliente extends Thread{
@@ -59,11 +61,9 @@ public class HiloCliente extends Thread{
 	                this.fin = true;
 	                break;
 	            case "Empezar":
-	                this.gameController.empezar();
+	                this.gameController.empezar(Integer.parseInt(partes[1]), Integer.parseInt(partes[2]));
 	                break;
-	            case "UpdateState": // NUEVO CASO para recibir la actualización del servidor
-	                // Formato ejemplo: "UpdateState:1:posX1:posY1:vida1:estado1:2:posX2:posY2:vida2:estado2"
-	                // El servidor enviará la posición/estado de AMBOS jugadores.
+	            case "UpdateState": 
 	                this.gameController.actualizarEstado(partes);
 	                break;
 	            case "FinJuego":

@@ -56,20 +56,12 @@ public class Partida implements Screen, GameController {
 
     @Override
     public void show() {
+    	if (this.juegoEmpezado) {
         if (!this.nivelIniciado) {
-            if (!this.JUGADORES[this.JUGADOR1].getPartidaEmpezada()) this.JUGADORES[this.JUGADOR1].generarPersonajeAleatorio();
-            if (!this.JUGADORES[this.JUGADOR2].getPartidaEmpezada()) this.JUGADORES[this.JUGADOR2].generarPersonajeAleatorio();
-
-            this.inputController = new InputController();
             this.nivelIniciado = true;
 
-            this.gestorNiveles.inicializarNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage, this.gestorDerrota);
-        }
-        this.gestorHUD = new GestorHUD(this.stageHUD,
-        	    this.JUGADORES[this.JUGADOR1],
-        	    this.JUGADORES[this.JUGADOR2]);
-
-        Gdx.input.setInputProcessor(this.inputController);
+             }
+    	}
         this.hiloCliente.start();
         this.hiloCliente.sendMessage("Conectado");
     }
@@ -151,10 +143,28 @@ public class Partida implements Screen, GameController {
 	}
 
 	@Override
-	public void empezar() {
-		this.juegoEmpezado = true;
-		
+	public void empezar(int p1Id, int p2Id) {
+	    // Ejecutar en el hilo principal de render de LibGDX
+	    Gdx.app.postRunnable(() -> {
+	        this.JUGADORES[JUGADOR1].asignarPersonaje(p1Id);
+	        this.JUGADORES[JUGADOR2].asignarPersonaje(p2Id);
+
+	        this.juegoEmpezado = true;
+
+	        if (!this.nivelIniciado) {
+	            this.inputController = new InputController();
+	            this.nivelIniciado = true;
+	            this.gestorNiveles.inicializarNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage, this.gestorDerrota);
+	            this.gestorHUD = new GestorHUD(this.stageHUD,
+	            	    this.JUGADORES[this.JUGADOR1],
+	            	    this.JUGADORES[this.JUGADOR2]);
+	            Gdx.input.setInputProcessor(this.inputController);
+	        }
+	    });
 	}
+
+		
+	
 
 	@Override
 	public void perder() {
@@ -168,6 +178,7 @@ public class Partida implements Screen, GameController {
 
 	@Override
 	public void actualizarEstado(String[] datos) {
+		if (this.juegoEmpezado) {
 	    // Formato: [0:UpdateState, 1:1, 2:posX1, 3:posY1, 4:vida1, 5:ESTADO1, 6:2, 7:posX2, 8:posY2, 9:vida2, 10:ESTADO2]
 
 	    // --- JUGADOR 1 (Índice 0) ---
@@ -199,16 +210,9 @@ public class Partida implements Screen, GameController {
 	        p2.setX(p2X);
 	        p2.setY(p2Y);
 	        p2.setVida(Integer.parseInt(datos[9]));
-	        p1.setVida(Integer.parseInt(datos[4]));
 	    }
-	    
+		}
 	    // Nota: Deberías incluir también la actualización de vida y estado aquí.
-	}
-
-	@Override
-	public void asignarPersonajes(int personajeIndice) {
-		// TODO Auto-generated method stub
-		
 	}
 	    
 	    // Nota: Ya no es necesario el condicional basado en this.JUGADORES[this.JUGADOR1].getNumPlayer(

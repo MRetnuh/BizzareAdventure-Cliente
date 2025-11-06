@@ -31,12 +31,10 @@ public class GestorNiveles {
         if (jugadores[jugador1].getPersonajeElegido() != null) {
             jugadores[jugador1].getPersonajeElegido()
                     .setPosicion(nivelActual.getInicioX1(), nivelActual.getInicioY1());
-            jugadores[jugador1].generarPersonajeAleatorio();
         }
         if (jugadores[jugador2].getPersonajeElegido() != null) {
             jugadores[jugador2].getPersonajeElegido()
                     .setPosicion(nivelActual.getInicioX2(), nivelActual.getInicioY2());
-            jugadores[jugador2].generarPersonajeAleatorio();
         }
 
         stage.clear();
