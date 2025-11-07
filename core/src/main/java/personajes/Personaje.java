@@ -297,6 +297,10 @@ public abstract class Personaje extends Actor {
         this.estaSaltando = moviendo;
     }
     
+    public void setEstaMoviendose(boolean valor) {
+    	this.estaMoviendose = valor;
+    }
+    
     public TipoAtaque getTipoAtaque() {
     	return this.tipoAtaque;
     }

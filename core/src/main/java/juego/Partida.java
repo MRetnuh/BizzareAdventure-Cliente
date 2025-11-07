@@ -213,7 +213,28 @@ public class Partida implements Screen, GameController {
 		}
 	    // Nota: Deberías incluir también la actualización de vida y estado aquí.
 	}
-	    
+
+	@Override
+	public void animar(int idJugador, boolean izquierda, boolean derecha, boolean saltar) {
+		if (this.juegoEmpezado) {
+		Personaje p1 = this.JUGADORES[this.JUGADOR1].getPersonajeElegido();
+		Personaje p2 = this.JUGADORES[this.JUGADOR2].getPersonajeElegido();
+		if(idJugador == 1) {
+		     p1.setEstaMoviendose(true);
+			 p1.setMoviendoDerecha(derecha);
+			 p1.setMoviendoIzquierda(izquierda);
+			 p1.setEstaSaltando(saltar);
+			
+		}
+		else {
+			 p2.setEstaMoviendose(true);
+			 p2.setMoviendoDerecha(derecha);
+			 p2.setMoviendoIzquierda(izquierda);
+			 p2.setEstaSaltando(saltar);
+		}
+		
+	}
+	}
 	    // Nota: Ya no es necesario el condicional basado en this.JUGADORES[this.JUGADOR1].getNumPlayer(
 
 }

@@ -6,4 +6,5 @@ public interface GameController {
     void perder();
     void actualizarEstado(String[] datos);
     void volverAlMenu();
+    void animar(int idJugador, boolean izquierda, boolean derecha, boolean saltar);
 }
