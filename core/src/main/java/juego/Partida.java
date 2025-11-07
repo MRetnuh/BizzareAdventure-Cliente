@@ -228,6 +228,9 @@ public class Partida implements Screen, GameController {
 	    p.setEstaSaltando(saltar);
 	    boolean estaMoviendo = derecha || izquierda || saltar;
 	    p.setEstaMoviendose(estaMoviendo);
+	    if(derecha) p.setMirandoDerecha(false);
+	    else if(izquierda) p.setMirandoDerecha(true);
+	    
 	}
 
 }
