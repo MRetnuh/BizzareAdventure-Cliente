@@ -73,6 +73,9 @@ public class HiloCliente extends Thread{
 	            	this.gameController.animar(Integer.parseInt(partes[1]), Boolean.parseBoolean(partes[2]), 
         			Boolean.parseBoolean(partes[3]), Boolean.parseBoolean(partes[4]));
 	            	break;
+	            case "Enemigos":
+	            	this.gameController.actualizarEnemigos(partes);
+	            	break;
 	            case "Desconectado":
 	                this.gameController.volverAlMenu();
 	                break;

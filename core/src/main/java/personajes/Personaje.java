@@ -280,34 +280,16 @@ public abstract class Personaje extends Actor {
             }
         }
     }
-
-    /**
-     * Aplica el movimiento y actualiza mirandoDerecha de forma robusta.
-     * Reinicia estadoTiempo si hay cambio de direccion para que la animacion de
-     * la nueva direccion empiece desde el frame 0 (evita "pegues").
-     */
+    
     public void aplicarMovimiento(float nuevoX, float nuevoY, float delta, int mapWidth, int mapHeight) {
-        // Detectar si se mueve realmente
-        boolean nuevoEstaMoviendose = nuevoX != super.getX() || nuevoY != super.getY();
-
-        // Determinar dirección por comparación de posiciones
-        if (nuevoX > super.getX()) {
-            if (!mirandoDerecha) {
-                mirandoDerecha = true;
-                estadoTiempo = 0f; // reset al cambiar de dirección
-            }
-        } else if (nuevoX < super.getX()) {
-            if (mirandoDerecha) {
-                mirandoDerecha = false;
-                estadoTiempo = 0f; // reset al cambiar de dirección
-            }
-        }
-        this.estaMoviendose = nuevoEstaMoviendose;
+        this.estaMoviendose = nuevoX != super.getX() || nuevoY != super.getY();
+        this.mirandoDerecha = nuevoX > super.getX() || nuevoX == super.getX() && this.mirandoDerecha;
 
         float anchoSprite = getWidth();
         float altoSprite = getHeight();
 
         nuevoX = Math.max(0, Math.min(nuevoX, mapWidth - anchoSprite));
+
         nuevoY = Math.min(nuevoY, mapHeight - altoSprite);
 
         setX(nuevoX);

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import audios.Musica;
+import enemigos.EnemigoBase;
 import input.InputController;
 import interfaces.GameController;
 import jugadores.Jugador;
@@ -96,8 +97,6 @@ public class Partida implements Screen, GameController {
         stageCam.update();
 
         this.batch.setProjectionMatrix(this.camara.combined);
-
-        GestorEnemigos.actualizar(delta, this.nivelActual, this.JUGADORES, this.stage, this.musicaPartida);
 
         this.stage.act(delta);
         this.stage.draw();
@@ -232,5 +231,29 @@ public class Partida implements Screen, GameController {
 	    else if(izquierda) p.setMirandoDerecha(true);
 	    
 	}
+
+	public void actualizarEnemigos(String[] datos) {
+	    if (this.nivelActual == null) return;
+
+	    for (int i = 1; i < datos.length; i++) {
+	        String[] info = datos[i].split(",");
+	        if (info.length < 4) continue;
+
+	        String id = info[0];
+	        float x = Float.parseFloat(info[1]);
+	        float y = Float.parseFloat(info[2]);
+	        int vida = Integer.parseInt(info[3]);
+
+	        for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
+	            if (enemigo.getNombre().equals(id)) {
+	                enemigo.setX(x);
+	                enemigo.setY(y);
+	                enemigo.setVida(vida);
+	                break;
+	            }
+	        }
+	    }
+	}
+
 
 }
