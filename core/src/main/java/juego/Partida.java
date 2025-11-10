@@ -233,27 +233,41 @@ public class Partida implements Screen, GameController {
 	}
 
 	public void actualizarEnemigos(String[] datos) {
-	    if (this.nivelActual == null) return;
+		if (this.nivelActual == null) return;
 
-	    for (int i = 1; i < datos.length; i++) {
-	        String[] info = datos[i].split(",");
-	        if (info.length < 4) continue;
+		for (int i = 1; i < datos.length; i++) {
+			String[] info = datos[i].split(",");
+			if (info.length < 4) continue;
 
-	        String id = info[0];
-	        float x = Float.parseFloat(info[1]);
-	        float y = Float.parseFloat(info[2]);
-	        int vida = Integer.parseInt(info[3]);
+			String id = info[0];
+			float x = Float.parseFloat(info[1]);
+			float y = Float.parseFloat(info[2]);
+			int vida = Integer.parseInt(info[3]);
 
-	        for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
-	            if (enemigo.getNombre().equals(id)) {
-	                enemigo.setX(x);
-	                enemigo.setY(y);
-	                enemigo.setVida(vida);
-	                break;
-	            }
-	        }
-	    }
+			for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
+				if (enemigo.getNombre().equals(id)) {
+
+					// Detectar si se movió (para animar)
+					boolean seMovio = (enemigo.getX() != x);
+
+					// Actualizar dirección según hacia dónde se movió
+					if (seMovio) {
+						enemigo.setEstaMoviendose(true);
+						enemigo.setMirandoDerecha(x > enemigo.getX());
+					} else {
+						enemigo.setEstaMoviendose(false);
+					}
+
+					enemigo.setX(x);
+					enemigo.setY(y);
+					enemigo.setVida(vida);
+
+					break;
+				}
+			}
+		}
 	}
+
 
 
 }
