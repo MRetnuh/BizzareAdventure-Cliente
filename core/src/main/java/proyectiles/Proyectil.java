@@ -69,4 +69,9 @@ public class Proyectil extends Actor {
     public boolean isActivo() {
         return activa;
     }
+
+	public void setActivo(boolean b) {
+		this.activa = b;
+		
+	}
 }

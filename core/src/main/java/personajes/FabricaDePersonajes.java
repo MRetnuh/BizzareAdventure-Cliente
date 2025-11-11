@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 
 public enum FabricaDePersonajes {
 
-    AKAME("Akame", 250, "EspadaCorte", 1, TipoAtaque.MELEE,
+    AKAME("Akame", 250, "EspadaCorte", 20, TipoAtaque.MELEE,
             "imagenes/personajes/akame/akame_derecha_moviendose_",
             "imagenes/personajes/akame/akame_izquierda_moviendose_",
             "imagenes/personajes/akame/ataque/akame_derecha_atacando_",

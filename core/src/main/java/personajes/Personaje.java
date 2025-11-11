@@ -347,6 +347,10 @@ public abstract class Personaje extends Actor {
     public void setMirandoDerecha(boolean derecha) {
     	this.mirandoDerecha = derecha;
     }
+    
+    public boolean getMirandoDerecha() {
+    	return this.mirandoDerecha;
+    }
 
     public void setMoviendoIzquierda(boolean moviendo) {
         this.moviendoIzquierda = moviendo;

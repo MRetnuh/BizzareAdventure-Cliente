@@ -15,7 +15,8 @@ public abstract class EnemigoBase extends Personaje{
 	  	protected float tiempoSinVerJugador = 0f;
 	  	protected final float TIEMPOPARAOLVIDAR = 1.0f; 
 	  	protected final float TOLERANCIAVERTICAL = 100f; 
-	    
+	    protected String rutaBala;
+	  	
 	  	private TipoEnemigo tipoEnemigo;
 	  	
 	public EnemigoBase(String nombre, int velocidad, String nombreAtaque, int vida, TipoEnemigo tipo) {
@@ -79,6 +80,10 @@ public abstract class EnemigoBase extends Personaje{
 	
 	public TipoEnemigo getTipoEnemigo() {
 		return this.tipoEnemigo;
+	}
+	
+	public String getRutaBala() {
+		return this.rutaBala;
 	}
 }
 

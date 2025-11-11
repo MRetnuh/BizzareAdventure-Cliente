@@ -7,5 +7,6 @@ public interface GameController {
     void actualizarEstado(String[] datos);
     void volverAlMenu();
     void animar(int idJugador, boolean izquierda, boolean derecha, boolean saltar);
-    void actualizarEnemigos(String[] datos);
+    void actualizarMovimientoEnemigos(String[] datos);
+    void actualizarBalasEnemigos(String[] datos);
 }

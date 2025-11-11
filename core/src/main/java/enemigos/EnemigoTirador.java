@@ -87,6 +87,7 @@ public class EnemigoTirador extends EnemigoBase {
                 "imagenes/personajes/enemigo/ataque/Bala_Izquierda.png";
 
         disparar(ruta, volumen);
+        super.rutaBala = ruta;
     }
     
     private void disparar(String ruta, float volumen) {
