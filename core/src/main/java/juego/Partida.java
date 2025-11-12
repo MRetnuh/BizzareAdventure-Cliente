@@ -207,7 +207,8 @@ public class Partida implements Screen, GameController {
 	        // 1. Soy J2: Actualizo al J1 (oponente)
 	        p1.setX(p1X);
 	        p1.setY(p1Y);
-	        // 2. Soy J2: Corrijo/Sincronizo al J2 (local)
+			p1.setVida(Integer.parseInt(datos[4]));
+			// 2. Soy J2: Corrijo/Sincronizo al J2 (local)
 	        p2.setX(p2X);
 	        p2.setY(p2Y);
 	        p2.setVida(Integer.parseInt(datos[9]));
