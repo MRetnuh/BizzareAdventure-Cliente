@@ -63,6 +63,9 @@ public class HiloCliente extends Thread{
 	            case "Empezar":
 	                this.gameController.empezar(Integer.parseInt(partes[1]), Integer.parseInt(partes[2]));
 	                break;
+	            case "Nivel":
+	            	this.gameController.asignarNivel(Integer.parseInt(partes[1]));
+	            	break;
 	            case "UpdateState": 
 	                this.gameController.actualizarEstado(partes);
 	                break;

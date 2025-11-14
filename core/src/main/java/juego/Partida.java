@@ -52,8 +52,6 @@ public class Partida implements Screen, GameController {
         this.batch = new SpriteBatch();
         this.stage = new Stage(new ScreenViewport(), this.batch);
         this.stageHUD = new Stage(new ScreenViewport(), this.batch);
-        this.nivelActual = this.niveles[0];
-        this.gestorNiveles = new GestorNiveles(juego, this.niveles, this.nivelActual);
         this.hiloCliente = new HiloCliente(this);
         inicializarJugadores();
     }
@@ -153,6 +151,7 @@ public class Partida implements Screen, GameController {
 	        this.juegoEmpezado = true;
 
 	        if (!this.nivelIniciado) {
+	        	this.gestorNiveles = new GestorNiveles(JUEGO, this.niveles, this.nivelActual);
 	            this.inputController = new InputController();
 	            this.nivelIniciado = true;
 	            this.gestorNiveles.inicializarNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage, this.gestorDerrota);
@@ -315,6 +314,12 @@ public class Partida implements Screen, GameController {
 	            }
 	        }
 	    }
+	}
+
+	@Override
+	public void asignarNivel(int indice) {
+		this.nivelActual = this.niveles[indice];
+		
 	}
 
 
