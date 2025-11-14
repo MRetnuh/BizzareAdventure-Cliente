@@ -6,6 +6,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -302,7 +303,18 @@ public class Partida implements Screen, GameController {
 		
 	}
 
+	@Override
+	public void eliminarCaja(String[] datos) {
+		  TiledMapTileLayer layer = (TiledMapTileLayer) this.nivelActual.getMapa().getLayers().get("cajasInteractivas");
+		    if (layer == null) return;
+		    String[] info = datos[1].split(",");
+		    int x = Integer.parseInt(info[0]);
+		    int y = Integer.parseInt(info[1]);
+		    layer.getCell(x, y).setTile(this.nivelActual.getMapa().getTileSets().getTile(0));
+		}
+		
+	}
 
 
 
-}
+

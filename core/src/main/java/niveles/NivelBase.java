@@ -78,6 +78,7 @@ public abstract class NivelBase {
 
     public OrthogonalTiledMapRenderer getMapRenderer() { return this.mapRenderer; }
     public List<EnemigoBase> getEnemigos() { return this.enemigos; }
+    public TiledMap getMapa() {return this.mapa;}
     public int getAnchoMapa() { return this.anchoMapa; }
     public int getAlturaMapa() { return this.alturaMapa; }
     public float getInicioX1() { return this.inicioX1; }

@@ -10,4 +10,5 @@ public interface GameController {
     void animar(int idJugador, boolean izquierda, boolean derecha, boolean saltar);
     void actualizarMovimientoEnemigos(String[] datos);
     void actualizarBalasEnemigos(String[] datos);
+    void eliminarCaja(String[] datos);
 }
