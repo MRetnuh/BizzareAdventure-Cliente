@@ -273,48 +273,28 @@ public class Partida implements Screen, GameController {
 
 	@Override
 	public void actualizarBalasEnemigos(String[] datos) {
-	    if (this.nivelActual == null) return;
+		   String[] info = datos[1].split(",");
+		    String idEnemigo = info[0];
+		    float x = Float.parseFloat(info[1]);
+		    float y = Float.parseFloat(info[2]);
 
-	    for (int i = 1; i < datos.length; i++) {
-	        String[] info = datos[i].split(",");
-	        if (info.length < 3) continue;
+		    for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
+		        if (enemigo.getNombre().equals(idEnemigo) && enemigo.getVida() > 0) {
 
-	        String idEnemigo = info[0];
-	        float x = Float.parseFloat(info[1]);
-	        float y = Float.parseFloat(info[2]);
+		        	Gdx.app.postRunnable(() -> { 
+		            Proyectil nueva = new Proyectil(
+		                x, y,
+		                enemigo.getMirandoDerecha(),
+		                "imagenes/personajes/enemigo/ataque/Bala_Derecha.png"
+		            );
 
-	        for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
-	            if (enemigo.getNombre().equals(idEnemigo)) {
-	                ArrayList<Proyectil> balas = enemigo.getBalas();
-
-	                // Buscar bala existente cerca de esa posición
-	                Proyectil balaExistente = null;
-	                for (Proyectil b : balas) {
-	                    if (Math.abs(b.getX() - x) < 10 && Math.abs(b.getY() - y) < 10) {
-	                        balaExistente = b;
-	                        break;
-	                    }
-	                }
-
-	                if (balaExistente != null) {
-	                    // Actualizar posición de una existente
-	                    balaExistente.setX(x);
-	                    balaExistente.setY(y);
-	                    balaExistente.setActivo(true);
-	                } else {
-	                	  Gdx.app.postRunnable(() -> {
-	                    // Crear bala visual nueva
-	                    Proyectil nuevaBala = new Proyectil(x, y, enemigo.getMirandoDerecha(),  "imagenes/personajes/enemigo/ataque/Bala_Derecha.png");
-	                    nuevaBala.setActivo(true);
-	                    balas.add(nuevaBala);
-	                    this.stage.addActor(nuevaBala);
-	                	  });
-	                }
-	                break;
-	            }
-	        }
-	    }
-	}
+		            enemigo.getBalas().add(nueva);
+		            this.stage.addActor(nueva);
+		        	});
+		            break;
+		        }
+		    }
+		}
 
 	@Override
 	public void asignarNivel(int indice) {
