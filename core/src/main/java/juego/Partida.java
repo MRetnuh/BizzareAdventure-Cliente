@@ -59,15 +59,17 @@ public class Partida implements Screen, GameController {
 
     @Override
     public void show() {
-    	if (this.juegoEmpezado) {
-        if (!this.nivelIniciado) {
-            this.nivelIniciado = true;
+    	 if (!this.juegoEmpezado) {
+    	        this.hiloCliente.start();
+    	        this.hiloCliente.sendMessage("Conectado");
+    	    }
 
-             }
-    	}
-        this.hiloCliente.start();
-        this.hiloCliente.sendMessage("Conectado");
+    	    // IMPORTANTE: volver a darle control de input a Partida
+    	    if (this.inputController != null) {
+    	        Gdx.input.setInputProcessor(this.inputController);
+    	    }
     }
+
 
     @Override
     public void render(float delta) {
@@ -82,7 +84,7 @@ public class Partida implements Screen, GameController {
         }
     	int jugadorLocalIndex = this.idJugadorLocal; // Asumiendo que el 1 es el local por ahora, esto debe ser dinámico
 
-    	GestorInputs.procesarInputs(this.inputController,this.hiloCliente,jugadorLocalIndex);
+    	GestorInputs.procesarInputs(this.inputController,this.hiloCliente,jugadorLocalIndex, this.JUEGO, this, this.musicaPartida);
         GestorCamara.actualizar(this.camara, this.JUGADORES[this.JUGADOR1].getPersonajeElegido(),
         this.JUGADORES[this.JUGADOR2].getPersonajeElegido(), this.nivelActual.getAnchoMapa(), this.nivelActual.getAlturaMapa());
 
@@ -153,12 +155,14 @@ public class Partida implements Screen, GameController {
 
 	        if (!this.nivelIniciado) {
 	        	this.gestorNiveles = new GestorNiveles(JUEGO, this.niveles, this.nivelActual);
-	            this.inputController = new InputController();
 	            this.nivelIniciado = true;
 	            this.gestorNiveles.inicializarNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage, this.gestorDerrota);
 	            this.gestorHUD = new GestorHUD(this.stageHUD,
 	            	    this.JUGADORES[this.JUGADOR1],
 	            	    this.JUGADORES[this.JUGADOR2]);
+	            if (this.inputController == null) {
+	                this.inputController = new InputController();
+	            }
 	            Gdx.input.setInputProcessor(this.inputController);
 	        }
 	    });

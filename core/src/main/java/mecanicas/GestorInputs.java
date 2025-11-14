@@ -1,15 +1,17 @@
 package mecanicas;
 
+import com.badlogic.gdx.Game;
+
+import audios.Musica;
 import input.InputController;
+import juego.Partida;
+import pantallas.Opciones;
 import red.HiloCliente;
 
 public class GestorInputs {
 
-    public static void procesarInputs(
-        InputController inputController,
-        HiloCliente hiloCliente,
-        int idJugador
-    ) {
+    public static void procesarInputs(InputController inputController,HiloCliente hiloCliente,int idJugador, Game juego, 
+	Partida partidaActual, Musica musicaPartida) {
         boolean derecha = inputController.getDerecha1();
         boolean izquierda = inputController.getIzquierda1();
         boolean saltar = inputController.getSaltar1();
@@ -29,7 +31,8 @@ public class GestorInputs {
         }
 
         // Limpiar los ataques/acciones de botón único
-        if (atacar)
-            inputController.setAtacarFalso1();
+        if (atacar) {inputController.setAtacarFalso1();}
+        if (inputController.getOpciones1()) {juego.setScreen(new Opciones(juego, partidaActual, musicaPartida));
+        inputController.setOpcionesFalso1();}
 }
 }
