@@ -285,7 +285,7 @@ public class Partida implements Screen, GameController {
 		            Proyectil nueva = new Proyectil(
 		                x, y,
 		                enemigo.getMirandoDerecha(),
-		                "imagenes/personajes/enemigo/ataque/Bala_Derecha.png"
+		                info[3]
 		            );
 
 		            enemigo.getBalas().add(nueva);
