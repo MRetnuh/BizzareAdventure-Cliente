@@ -69,7 +69,7 @@ public class HiloCliente extends Thread{
 	            case "UpdateState": 
 	                this.gameController.actualizarEstado(partes);
 	                break;
-	            case "FinJuego":
+	            case "Derrota":
 	                this.gameController.perder();
 	                break;
 	            case "Animar":
