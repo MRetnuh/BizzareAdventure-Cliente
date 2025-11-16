@@ -174,7 +174,6 @@ public class Partida implements Screen, GameController {
 	@Override
 	public void perder() {
 		 Gdx.app.postRunnable(() -> {
-		        // reproducir música derrota
 		        musicaPartida.cambiarMusica("Derrota");
 
 		        // mostrar cartel
