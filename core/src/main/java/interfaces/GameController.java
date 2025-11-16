@@ -11,4 +11,5 @@ public interface GameController {
     void actualizarMovimientoEnemigos(String[] datos);
     void actualizarBalasEnemigos(String[] datos);
     void eliminarCaja(String[] datos);
+    void cambiarPersonaje(int jugador, int idPersonaje);
 }

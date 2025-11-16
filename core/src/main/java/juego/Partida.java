@@ -322,9 +322,14 @@ public class Partida implements Screen, GameController {
 		    int y = Integer.parseInt(info[1]);
 		    layer.getCell(x, y).setTile(this.nivelActual.getMapa().getTileSets().getTile(0));
 		}
+
+	@Override
+	public void cambiarPersonaje(int jugador, int idPersonaje) {
+		Gdx.app.postRunnable(() -> {
+		 this.stage.getActors().removeValue(this.JUGADORES[jugador - 1].getPersonajeElegido(), true);
+		 this.JUGADORES[jugador - 1].asignarPersonaje(idPersonaje);
+		 this.stage.addActor(this.JUGADORES[jugador - 1].getPersonajeElegido());
+		});
 		
 	}
-
-
-
-
+}
