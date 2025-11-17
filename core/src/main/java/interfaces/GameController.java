@@ -13,4 +13,5 @@ public interface GameController {
     void eliminarCaja(String[] datos);
     void cambiarPersonaje(int jugador, int idPersonaje);
     void avanzarNivel(String[] datos);
+    void cambiarPersonajesPorNivel(String[] datos);
 }

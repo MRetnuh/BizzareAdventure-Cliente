@@ -339,6 +339,20 @@ public class Partida implements Screen, GameController {
 	    });
 	}
 
+	@Override
+	public void cambiarPersonajesPorNivel(String[] datos) {
+		  Gdx.app.postRunnable(() -> {
+		     for(int i = 0; i < this.JUGADORES.length; i++) {
+		    	 this.stage.getActors().removeValue(this.JUGADORES[i].getPersonajeElegido(), true);
+		     }
+		     for(int j = 0; j < this.JUGADORES.length; j++) {
+		    	 this.JUGADORES[j].asignarPersonaje(Integer.parseInt(datos[j + 1]));
+				 this.stage.addActor(this.JUGADORES[j].getPersonajeElegido());
+		     }
+		
+	});
+	}
+
 
 		
 	

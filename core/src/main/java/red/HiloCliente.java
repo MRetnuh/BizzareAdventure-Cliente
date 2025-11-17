@@ -91,6 +91,9 @@ public class HiloCliente extends Thread{
 	            case "NivelCompletado":
 	            	this.gameController.avanzarNivel(partes);
 	            	break;
+	            case "CambioPersonajesNivel":
+	            	this.gameController.cambiarPersonajesPorNivel(partes);
+	            	break;
 	            case "Desconectado":
 	                this.gameController.volverAlMenu();
 	                break;
