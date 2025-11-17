@@ -19,6 +19,7 @@ import mecanicas.*;
 import niveles.Nivel1;
 import niveles.Nivel2;
 import niveles.NivelBase;
+import pantallas.NivelSuperado;
 import personajes.Personaje;
 import proyectiles.Proyectil;
 import red.HiloCliente;
@@ -88,8 +89,6 @@ public class Partida implements Screen, GameController {
         GestorCamara.actualizar(this.camara, this.JUGADORES[this.JUGADOR1].getPersonajeElegido(),
         this.JUGADORES[this.JUGADOR2].getPersonajeElegido(), this.nivelActual.getAnchoMapa(), this.nivelActual.getAlturaMapa());
 
-        this.gestorNiveles.comprobarVictoriaYAvanzar(JUGADORES, this);
-        this.nivelActual = this.gestorNiveles.getNivelActual();
         this.gestorHUD.actualizar();
 
         this.nivelActual.getMapRenderer().setView(this.camara);
@@ -175,8 +174,6 @@ public class Partida implements Screen, GameController {
 	public void perder() {
 		 Gdx.app.postRunnable(() -> {
 		        musicaPartida.cambiarMusica("Derrota");
-
-		        // mostrar cartel
 		        JUGADORES[0].getPersonajeElegido().morir(stageHUD);
 		        JUGADORES[1].getPersonajeElegido().morir(stageHUD);
 		    });
@@ -332,4 +329,17 @@ public class Partida implements Screen, GameController {
 		});
 		
 	}
+
+	@Override
+	public void avanzarNivel(String[] datos) {
+	    Gdx.app.postRunnable(() -> {
+	        String nivelAnterior = datos[1];
+	        String siguiente = datos[2];
+	        JUEGO.setScreen(new NivelSuperado(nivelAnterior, JUEGO, siguiente, this));
+	    });
+	}
+
+
+		
+	
 }

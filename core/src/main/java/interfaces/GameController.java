@@ -12,4 +12,5 @@ public interface GameController {
     void actualizarBalasEnemigos(String[] datos);
     void eliminarCaja(String[] datos);
     void cambiarPersonaje(int jugador, int idPersonaje);
+    void avanzarNivel(String[] datos);
 }

@@ -88,6 +88,9 @@ public class HiloCliente extends Thread{
 	            case "CambioPersonaje":
 	            	this.gameController.cambiarPersonaje(Integer.parseInt(partes[1]), Integer.parseInt(partes[2]));
 	            	break;
+	            case "NivelCompletado":
+	            	this.gameController.avanzarNivel(partes);
+	            	break;
 	            case "Desconectado":
 	                this.gameController.volverAlMenu();
 	                break;
