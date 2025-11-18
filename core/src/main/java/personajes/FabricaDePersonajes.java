@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 
 public enum FabricaDePersonajes {
 
-    AKAME("Akame", 250, "EspadaCorte", 20, TipoAtaque.MELEE,
+    AKAME("Akame", 250, "EspadaCorte", 1, TipoAtaque.MELEE,
             "imagenes/personajes/akame/akame_derecha_moviendose_",
             "imagenes/personajes/akame/akame_izquierda_moviendose_",
             "imagenes/personajes/akame/ataque/akame_derecha_atacando_",
@@ -25,6 +25,36 @@ public enum FabricaDePersonajes {
             "imagenes/personajes/leone/leone_derecha_(detenida).png",
             "imagenes/personajes/leone/leone_izquierda_(detenida).png", 4, 6,
             "imagenes/personajes/leone/leone_izquierda_(detenida).png"
+    ),
+    LUFI(
+            "Lufi", 230, "EspadaCorte", 1, TipoAtaque.MELEE,
+            "imagenes/personajes/lufi/lufi_derecha_moviendose_",
+            "imagenes/personajes/lufi/lufi_izquierda_moviendose_",
+            "imagenes/personajes/akame/ataque/akame_derecha_atacando_",
+            "imagenes/personajes/akame/ataque/akame_izquierda_atacando_",
+            "imagenes/personajes/lufi/lufi_derecha_moviendose_3.png",
+            "imagenes/personajes/lufi/lufi_izquierda_moviendose_3.png", 4, 6,
+            "imagenes/personajes/lufi/lufi_izquierda_moviendose_3.png"
+    ),
+    BOCCHI(
+            "Bocchi", 230, "EspadaCorte", 1, TipoAtaque.MELEE,
+            "imagenes/personajes/bocchi/bocchi_derecha_moviendose_",
+            "imagenes/personajes/bocchi/bocchi_izquierda_moviendose_",
+            "imagenes/personajes/akame/ataque/akame_derecha_atacando_",
+            "imagenes/personajes/akame/ataque/akame_izquierda_atacando_",
+            "imagenes/personajes/bocchi/bocchi_derecha_moviendose_3.png",
+            "imagenes/personajes/bocchi/bocchi_izquierda_moviendose_3.png", 4, 6,
+            "imagenes/personajes/bocchi/bocchi_izquierda_moviendose_3.png"
+    ),
+    SEVEN("Seven", 230, "EspadaCorte", 1, TipoAtaque.MELEE,
+            "imagenes/personajes/seven/seven_derecha_moviendo_",
+            "imagenes/personajes/seven/seven_izquierda_moviendo_",
+            "imagenes/personajes/akame/ataque/akame_derecha_atacando_",
+            "imagenes/personajes/akame/ataque/akame_izquierda_atacando_",
+            "imagenes/personajes/seven/seven_izquierda_moviendo_3.png",
+            "imagenes/personajes/seven/seven_derecha_moviendo_3.png", 4, 6,
+            "imagenes/personajes/seven/seven_izquierda_moviendo_3.png"
+
     );
 
     private final String nombre;
@@ -36,8 +66,8 @@ public enum FabricaDePersonajes {
     private final String rutaQuietoDerecha, rutaQuietoIzquierda;
     private final TipoAtaque tipoAtaque;
     private final String rutaMuerte;
-    private int cantSpriteMovimiento;
-    private int cantSpriteAtaque;
+    final private int cantSpriteMovimiento;
+    final private int cantSpriteAtaque;
     FabricaDePersonajes(String nombre, int velocidad, String nombreAtaque, int vida,TipoAtaque tipoAtaque,
                         String rutaMovDerecha, String rutaMovIzquierda,
                         String rutaAtaqueDerecha, String rutaAtaqueIzquierda,
