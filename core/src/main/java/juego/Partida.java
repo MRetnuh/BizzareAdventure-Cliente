@@ -108,8 +108,7 @@ public class Partida implements Screen, GameController {
     }
     
     public void inicializarSiguienteNivel() {
-        this.gestorNiveles.inicializarSiguienteNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage, this.gestorDerrota);
-        if (this.inputController != null) {
+    	if (this.inputController != null) {
             this.inputController.resetearInputs(); 
         }
         Gdx.input.setInputProcessor(null);
@@ -257,7 +256,6 @@ public class Partida implements Screen, GameController {
 
 			for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
 				if (enemigo.getNombre().equals(id)) {
-
 					// Detectar si se movió (para animar)
 					boolean seMovio = (enemigo.getX() != x);
 
@@ -336,7 +334,10 @@ public class Partida implements Screen, GameController {
 	        String nivelAnterior = datos[1];
 	        String siguiente = datos[2];
 	        JUEGO.setScreen(new NivelSuperado(nivelAnterior, JUEGO, siguiente, this));
-	    });
+	   
+	    	this.nivelActual = this.niveles[Integer.parseInt(datos[3])];
+	    	this.gestorNiveles = new GestorNiveles(JUEGO, this.niveles, this.nivelActual);
+	    	this.gestorNiveles.inicializarNivel(JUGADORES, JUGADOR1, JUGADOR2, stage, gestorDerrota); });
 	}
 
 	@Override
