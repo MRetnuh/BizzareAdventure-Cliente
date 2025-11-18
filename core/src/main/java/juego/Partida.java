@@ -354,6 +354,18 @@ public class Partida implements Screen, GameController {
 	});
 	}
 
+	@Override
+	public void animarPersonajeAtaque(String[] datos) {
+		int idJugador = Integer.parseInt(datos[1]) - 1;
+		float delta = Float.parseFloat(datos[2]);
+		Gdx.app.postRunnable(() -> {
+		this.JUGADORES[idJugador].getPersonajeElegido().iniciarAtaque(this.musicaPartida.getVolumen(), delta, nivelActual);
+		this.JUGADORES[idJugador].getPersonajeElegido().setEstaAtacando(false);
+		this.JUGADORES[idJugador].getPersonajeElegido().setEstaAtacando(true);
+		this.JUGADORES[idJugador].getPersonajeElegido().atacar(delta);
+		});
+	}
+
 
 		
 	

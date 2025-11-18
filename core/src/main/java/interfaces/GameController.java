@@ -14,4 +14,5 @@ public interface GameController {
     void cambiarPersonaje(int jugador, int idPersonaje);
     void avanzarNivel(String[] datos);
     void cambiarPersonajesPorNivel(String[] datos);
+    void animarPersonajeAtaque(String[] datos);
 }
