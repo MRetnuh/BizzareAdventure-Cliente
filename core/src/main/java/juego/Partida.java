@@ -88,7 +88,9 @@ public class Partida implements Screen, GameController {
     	GestorInputs.procesarInputs(this.inputController,this.hiloCliente,jugadorLocalIndex, this.JUEGO, this, this.musicaPartida);
         GestorCamara.actualizar(this.camara, this.JUGADORES[this.JUGADOR1].getPersonajeElegido(),
         this.JUGADORES[this.JUGADOR2].getPersonajeElegido(), this.nivelActual.getAnchoMapa(), this.nivelActual.getAlturaMapa());
-
+        if(this.JUGADORES[this.JUGADOR1].getPersonajeElegido().getEstaAtacando())this.JUGADORES[this.JUGADOR1].getPersonajeElegido().atacar(delta);
+        if(this.JUGADORES[this.JUGADOR2].getPersonajeElegido().getEstaAtacando())this.JUGADORES[this.JUGADOR2].getPersonajeElegido().atacar(delta);
+       
         this.gestorHUD.actualizar();
 
         this.nivelActual.getMapRenderer().setView(this.camara);
@@ -360,9 +362,8 @@ public class Partida implements Screen, GameController {
 		float delta = Float.parseFloat(datos[2]);
 		Gdx.app.postRunnable(() -> {
 		this.JUGADORES[idJugador].getPersonajeElegido().iniciarAtaque(this.musicaPartida.getVolumen(), delta, nivelActual);
-		this.JUGADORES[idJugador].getPersonajeElegido().setEstaAtacando(false);
 		this.JUGADORES[idJugador].getPersonajeElegido().setEstaAtacando(true);
-		this.JUGADORES[idJugador].getPersonajeElegido().atacar(delta);
+		
 		});
 	}
 
