@@ -18,7 +18,7 @@ public class HiloCliente extends Thread{
 	    private InetAddress ipServidor;
 	    private boolean fin = false;
 	    private GameController gameController;
-	    
+	    private boolean conexionEntreJugadores = false;
 	    public HiloCliente(GameController gameController) {
 	        try {
 	        	this.gameController = gameController;
@@ -61,6 +61,7 @@ public class HiloCliente extends Thread{
 	                this.fin = true;
 	                break;
 	            case "Empezar":
+	            	this.conexionEntreJugadores = true;
 	                this.gameController.empezar(Integer.parseInt(partes[1]), Integer.parseInt(partes[2]));
 	                break;
 	            case "Nivel":
@@ -121,5 +122,9 @@ public class HiloCliente extends Thread{
 	        this.fin = true;
 	        this.socket.close();
 	        this.interrupt();
+	    }
+	    
+	    public boolean getConexionEntreJugadores() {
+	    	return this.conexionEntreJugadores;
 	    }
 }

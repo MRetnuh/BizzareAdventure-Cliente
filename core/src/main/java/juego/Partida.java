@@ -21,6 +21,7 @@ import niveles.Nivel1;
 import niveles.Nivel2;
 import niveles.NivelBase;
 import pantallas.NivelSuperado;
+import pantallas.PantallaEspera;
 import personajes.Personaje;
 import proyectiles.Proyectil;
 import red.HiloCliente;
@@ -61,9 +62,11 @@ public class Partida implements Screen, GameController {
 
     @Override
     public void show() {
-    	 if (!this.juegoEmpezado) {
+    	 if (!this.juegoEmpezado) {   
+    		 	this.JUEGO.setScreen(new PantallaEspera(this.JUEGO, this.hiloCliente, this));
     	        this.hiloCliente.start();
     	        this.hiloCliente.sendMessage("Conectado");
+    	     
     	    }
 
     	    // IMPORTANTE: volver a darle control de input a Partida
@@ -77,8 +80,8 @@ public class Partida implements Screen, GameController {
     public void render(float delta) {
     	if (!this.juegoEmpezado) {
             // Lógica para dibujar una pantalla de espera o un mensaje en el HUD
-            Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+           // Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
+            //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             // Dibuja un mensaje: "Esperando al otro jugador..." usando tu Stage/SpriteBatch
             this.stageHUD.act(delta);
             this.stageHUD.draw();
