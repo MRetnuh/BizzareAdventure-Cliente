@@ -1,6 +1,7 @@
 package juego;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
@@ -244,34 +245,29 @@ public class Partida implements Screen, GameController {
 	    
 	}
 
+	@Override
 	public void actualizarMovimientoEnemigos(String[] datos) {
-		if (this.nivelActual == null) return;
 
 		for (int i = 1; i < datos.length; i++) {
+
 			String[] info = datos[i].split(",");
-			if (info.length < 4) continue;
+			if (info.length < 6) continue;
 
 			String id = info[0];
 			float x = Float.parseFloat(info[1]);
 			float y = Float.parseFloat(info[2]);
 			int vida = Integer.parseInt(info[3]);
+			boolean mirandoDer = Boolean.parseBoolean(info[4]);
+			boolean moviendose = Boolean.parseBoolean(info[5]);
 
-			for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
+			for (EnemigoBase enemigo : nivelActual.getEnemigos()) {
 				if (enemigo.getNombre().equals(id)) {
-					// Detectar si se movió (para animar)
-					boolean seMovio = (enemigo.getX() != x);
-
-					// Actualizar dirección según hacia dónde se movió
-					if (seMovio) {
-						enemigo.setEstaMoviendose(true);
-						enemigo.setMirandoDerecha(x > enemigo.getX());
-					} else {
-						enemigo.setEstaMoviendose(false);
-					}
 
 					enemigo.setX(x);
 					enemigo.setY(y);
 					enemigo.setVida(vida);
+					enemigo.setMirandoDerecha(mirandoDer);
+					enemigo.setEstaMoviendose(moviendose);
 
 					break;
 				}
@@ -279,30 +275,36 @@ public class Partida implements Screen, GameController {
 		}
 	}
 
+
 	@Override
 	public void actualizarBalasEnemigos(String[] datos) {
-		   String[] info = datos[1].split(",");
-		    String idEnemigo = info[0];
-		    float x = Float.parseFloat(info[1]);
-		    float y = Float.parseFloat(info[2]);
 
-		    for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
-		        if (enemigo.getNombre().equals(idEnemigo) && enemigo.getVida() > 0) {
+		String[] info = datos[1].split(",");
+		String idEnemigo = info[0];
+		float x = Float.parseFloat(info[1]);
+		float y = Float.parseFloat(info[2]);
+		String ruta = info[3];
 
-		        	Gdx.app.postRunnable(() -> { 
-		            Proyectil nueva = new Proyectil(
-		                x, y,
-		                enemigo.getMirandoDerecha(),
-		                info[3]
-		            );
+		for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
+			if (enemigo.getNombre().equals(idEnemigo) && enemigo.getVida() > 0) {
 
-		            enemigo.getBalas().add(nueva);
-		            this.stage.addActor(nueva);
-		        	});
-		            break;
-		        }
-		    }
+				// Evitar duplicados
+				for (Proyectil existente : enemigo.getBalas()) {
+					if (Math.abs(existente.getX() - x) < 5f &&
+							Math.abs(existente.getY() - y) < 5f) {
+						return; // Bala ya existe
+					}
+				}
+				Gdx.app.postRunnable(() -> {
+					Proyectil nueva = new Proyectil(x, y, enemigo.getMirandoDerecha(), ruta);
+					enemigo.getBalas().add(nueva);
+					this.stage.addActor(nueva);
+					return;
+				});
+			}
 		}
+	}
+
 
 	@Override
 	public void asignarNivel(int indice) {
@@ -367,7 +369,26 @@ public class Partida implements Screen, GameController {
 		});
 	}
 
+	@Override
+	public void eliminarBala(String[] datos) {
 
-		
-	
+		String idEnemigo = datos[1];
+		Gdx.app.postRunnable(() -> {
+		for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
+			if (enemigo.getNombre().equals(idEnemigo)) {
+
+				Iterator<Proyectil> it = enemigo.getBalas().iterator();
+				while (it.hasNext()) {
+					Proyectil b = it.next();
+					it.remove();
+					b.remove(); // remover del stage
+				}
+
+				return;
+			}
+		}});
+	}
+
+
+
 }
