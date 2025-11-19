@@ -91,7 +91,7 @@ public class EnemigoPesado extends EnemigoBase{
 	    }
 	    
 	    private void disparar(String ruta, float volumen) {
-	        super.balas.add(new Proyectil(getX(), getY() + 16, super.moviendoDerecha, ruta));
+	        super.balas.add(new Proyectil(getX(), getY() + 16, super.moviendoDerecha, ruta, false));
 	        EfectoSonido.reproducir(super.nombreAtaque, volumen);
 	    }
 

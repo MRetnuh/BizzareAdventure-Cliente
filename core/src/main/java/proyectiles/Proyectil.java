@@ -16,8 +16,8 @@ public class Proyectil extends Actor {
     private boolean activa = true;
     private final int WIDTH = 16;
     private final int HEIGHT = 16;
-
-    public Proyectil(float inicialX, float inicialY, boolean haciaDerecha, String ruta) {
+    private boolean esJugador;
+    public Proyectil(float inicialX, float inicialY, boolean haciaDerecha, String ruta, boolean esJugador) {
         super.setX(inicialX);
         super.setY(inicialY);
 
@@ -27,10 +27,12 @@ public class Proyectil extends Actor {
         this.haciaDerecha = haciaDerecha;
         this.velocidad = 400;
         this.textura = new Texture(Gdx.files.internal(ruta));
+        this.esJugador = esJugador;
     }
 
     @Override
     public void act(float delta) {
+    	if(esJugador) {
         if (!this.activa) return;
 
         float movimiento = this.velocidad * delta;
@@ -39,6 +41,7 @@ public class Proyectil extends Actor {
         } else {
             super.setX(getX() - movimiento);
         }
+    }
     }
 
     @Override

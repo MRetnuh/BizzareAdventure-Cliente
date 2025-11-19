@@ -296,7 +296,7 @@ public class Partida implements Screen, GameController {
 					}
 				}
 				Gdx.app.postRunnable(() -> {
-					Proyectil nueva = new Proyectil(x, y, enemigo.getMirandoDerecha(), ruta);
+					Proyectil nueva = new Proyectil(x, y, enemigo.getMirandoDerecha(), ruta, false);
 					enemigo.getBalas().add(nueva);
 					nueva.setPosition(x, y);
 					this.stage.addActor(nueva);

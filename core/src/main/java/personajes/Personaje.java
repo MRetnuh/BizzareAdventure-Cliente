@@ -267,7 +267,7 @@ public abstract class Personaje extends Actor {
                         ? "imagenes/personajes/enemigo/ataque/Bala_Derecha.png"
                         : "imagenes/personajes/enemigo/ataque/Bala_Izquierda.png";
 
-                Proyectil nuevaBala = new Proyectil(getX(), getY() + 16, this.mirandoDerecha, ruta);
+                Proyectil nuevaBala = new Proyectil(getX(), getY() + 16, this.mirandoDerecha, ruta, true);
                 this.balas.add(nuevaBala);
             }
 
