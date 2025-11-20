@@ -104,6 +104,9 @@ public class HiloCliente extends Thread{
 	            case "Desconectado":
 	                this.gameController.volverAlMenu();
 	                break;
+	            case "Victoria":
+	            	this.gameController.ganarPartida();
+	            	break;
 	        }
 
 	    }
@@ -118,10 +121,11 @@ public class HiloCliente extends Thread{
 	        }
 	    }
 
-	    public void terminate() {
+	    public void finalizar() {
 	        this.fin = true;
 	        this.socket.close();
 	        this.interrupt();
+	        System.out.println("Conexion finalizada");
 	    }
 	    
 	    public boolean getConexionEntreJugadores() {

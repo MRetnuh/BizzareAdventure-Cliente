@@ -6,7 +6,6 @@ import audios.Musica;
 import enemigos.EnemigoBase;
 import juego.Partida;
 import jugadores.Jugador;
-import mecanicas.GestorDerrota;
 import niveles.NivelBase;
 import pantallas.NivelSuperado;
 public class GestorNiveles {
@@ -23,7 +22,7 @@ public class GestorNiveles {
     }
  
     public void inicializarNivel(Jugador[] jugadores, int jugador1, int jugador2,
-                                 Stage stage, GestorDerrota gestorDerrota) {
+                                 Stage stage) {
 
     	this.nivelActual.restaurarEstadoCajas();
         this.nivelActual.crearEnemigos();
@@ -48,8 +47,6 @@ public class GestorNiveles {
         for (EnemigoBase enemigo : nivelActual.getEnemigos()) {
             stage.addActor(enemigo);
         }
-
-        gestorDerrota.resetear();
     }
 
     public void comprobarVictoriaYAvanzar(Jugador[] jugadores, Partida partida) {
@@ -74,9 +71,9 @@ public class GestorNiveles {
         }
     
     public void inicializarSiguienteNivel(Jugador[] jugadores, int jugador1, int jugador2,
-                                          Stage stage, GestorDerrota gestorDerrota) {
+                                          Stage stage) {
     		this.nivelActual = this.niveles[this.indiceNivelActual];
-            inicializarNivel(jugadores, jugador1, jugador2, stage, gestorDerrota);
+            inicializarNivel(jugadores, jugador1, jugador2, stage);
     }
     
     public NivelBase getNivelActual() {

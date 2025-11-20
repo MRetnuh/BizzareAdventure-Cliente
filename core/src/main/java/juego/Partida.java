@@ -22,12 +22,12 @@ import niveles.Nivel2;
 import niveles.NivelBase;
 import pantallas.NivelSuperado;
 import pantallas.PantallaEspera;
+import pantallas.Victoria;
 import personajes.Personaje;
 import proyectiles.Proyectil;
 import red.HiloCliente;
 
 public class Partida implements Screen, GameController {
-    private GestorDerrota gestorDerrota = new GestorDerrota();
     private Musica musicaPartida;
     private Stage stage;
     private Stage stageHUD;
@@ -125,7 +125,7 @@ public class Partida implements Screen, GameController {
         for (NivelBase nivel : this.niveles) nivel.dispose();
         if (this.gestorHUD != null) this.gestorHUD.dispose();
         this.batch.dispose();
-        this.hiloCliente.terminate();
+        this.hiloCliente.finalizar();
         this.stage.dispose();
         if (this.skin != null) this.skin.dispose();
     }
@@ -160,7 +160,7 @@ public class Partida implements Screen, GameController {
 	        if (!this.nivelIniciado) {
 	        	this.gestorNiveles = new GestorNiveles(JUEGO, this.niveles, this.nivelActual);
 	            this.nivelIniciado = true;
-	            this.gestorNiveles.inicializarNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage, this.gestorDerrota);
+	            this.gestorNiveles.inicializarNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage);
 	            this.gestorHUD = new GestorHUD(this.stageHUD,
 	            	    this.JUGADORES[this.JUGADOR1],
 	            	    this.JUGADORES[this.JUGADOR2]);
@@ -179,8 +179,8 @@ public class Partida implements Screen, GameController {
 	public void perder() {
 		 Gdx.app.postRunnable(() -> {
 		        musicaPartida.cambiarMusica("Derrota");
-		        JUGADORES[0].getPersonajeElegido().morir(stageHUD);
-		        JUGADORES[1].getPersonajeElegido().morir(stageHUD);
+		        JUGADORES[0].getPersonajeElegido().morir(stageHUD, this.hiloCliente);
+		        JUGADORES[1].getPersonajeElegido().morir(stageHUD, this.hiloCliente);
 		    });
 	}
 
@@ -345,7 +345,7 @@ public class Partida implements Screen, GameController {
 	   
 	    	this.nivelActual = this.niveles[Integer.parseInt(datos[3])];
 	    	this.gestorNiveles = new GestorNiveles(JUEGO, this.niveles, this.nivelActual);
-	    	this.gestorNiveles.inicializarNivel(JUGADORES, JUGADOR1, JUGADOR2, stage, gestorDerrota); });
+	    	this.gestorNiveles.inicializarNivel(JUGADORES, JUGADOR1, JUGADOR2, stage); });
 	}
 
 	@Override
@@ -391,6 +391,14 @@ public class Partida implements Screen, GameController {
 				return;
 			}
 		}});
+	}
+
+	@Override
+	public void ganarPartida() {
+		  Gdx.app.postRunnable(() -> {
+			  this.JUEGO.setScreen(new Victoria(this.JUEGO));
+		  });
+		
 	}
 
 

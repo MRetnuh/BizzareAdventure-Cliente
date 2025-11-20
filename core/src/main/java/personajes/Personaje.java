@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Timer;
 import audios.EfectoSonido;
 import niveles.NivelBase;
 import proyectiles.Proyectil;
+import red.HiloCliente;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -73,11 +74,6 @@ public abstract class Personaje extends Actor {
 
     protected abstract void cargarTexturas();
 
-    /**
-     * Si no se cargaron las animaciones/frames de la izquierda, las creamos
-     * girando (flip) las regiones de la derecha. Esto evita que la izquierda
-     * no se muestre por falta de recursos.
-     */
     private void asegurarAnimaciones() {
         // quieta
         if (quietaDerecha != null && quietaIzquierda == null) {
@@ -121,7 +117,7 @@ public abstract class Personaje extends Actor {
         super.setY(y);
     }
 
-    public void morir(Stage stage) {
+    public void morir(Stage stage, HiloCliente hiloCliente) {
         this.stage = stage;
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.BLACK);
@@ -160,7 +156,9 @@ public abstract class Personaje extends Actor {
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
+            	hiloCliente.finalizar();
                 Gdx.app.exit();
+                
             }
         }, 8);
     }
