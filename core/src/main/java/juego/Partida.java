@@ -20,6 +20,7 @@ import mecanicas.*;
 import niveles.Nivel1;
 import niveles.Nivel2;
 import niveles.NivelBase;
+import pantallas.Menu;
 import pantallas.NivelSuperado;
 import pantallas.PantallaEspera;
 import pantallas.Victoria;
@@ -186,7 +187,9 @@ public class Partida implements Screen, GameController {
 
 	@Override
 	public void volverAlMenu() {
-		
+		 Gdx.app.postRunnable(() -> {
+			 this.JUEGO.setScreen(new Menu(this.JUEGO));
+		 });
 	}
 
 	@Override
@@ -396,7 +399,7 @@ public class Partida implements Screen, GameController {
 	@Override
 	public void ganarPartida() {
 		  Gdx.app.postRunnable(() -> {
-			  this.JUEGO.setScreen(new Victoria(this.JUEGO));
+			  this.JUEGO.setScreen(new Victoria(this.JUEGO, this.hiloCliente));
 		  });
 		
 	}

@@ -12,15 +12,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 
 import estilos.EstiloTexto;
+import red.HiloCliente;
 
 public class Victoria implements Screen{
 		private final Game game;
 	    private Stage stage;
 	    private Skin skin;
-
+	    private HiloCliente hiloCliente;
 	    private Label titulo;
 
-	    public Victoria(Game game) {
+	    public Victoria(Game game, HiloCliente hiloCliente) {
+	    	this.hiloCliente = hiloCliente;
 	        this.game = game;
 	        this.stage = new Stage();
 	    }
