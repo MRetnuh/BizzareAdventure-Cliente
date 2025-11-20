@@ -188,6 +188,7 @@ public class Partida implements Screen, GameController {
 	@Override
 	public void volverAlMenu() {
 		 Gdx.app.postRunnable(() -> {
+			 this.musicaPartida.cambiarMusica("Menu");
 			 this.JUEGO.setScreen(new Menu(this.JUEGO));
 		 });
 	}
