@@ -86,6 +86,9 @@ public class HiloCliente extends Thread{
 	            case "BalasEnemigos":
 	            	this.gameController.actualizarBalasEnemigos(partes);
 	            	break;
+                case "ActualizarBalas":
+                    this.gameController.actualizarPosicionBalas(partes);
+                    break;
 	            case "CajaRota":
 	            	this.gameController.eliminarCaja(partes);
 	            	break;

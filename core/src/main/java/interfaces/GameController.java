@@ -17,4 +17,5 @@ public interface GameController {
     void animarPersonajeAtaque(String[] datos);
     void eliminarBala(String[] datos);
     void ganarPartida();
+    void actualizarPosicionBalas(String[] datos);
 }

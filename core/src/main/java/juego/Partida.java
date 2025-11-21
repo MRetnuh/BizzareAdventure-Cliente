@@ -306,7 +306,6 @@ public class Partida implements Screen, GameController {
 				Gdx.app.postRunnable(() -> {
 					Proyectil nueva = new Proyectil(x, y, enemigo.getMirandoDerecha(), ruta, false);
 					enemigo.getBalas().add(nueva);
-					nueva.setPosition(x, y);
 					this.stage.addActor(nueva);
 					return;
 				});
@@ -406,6 +405,21 @@ public class Partida implements Screen, GameController {
 		
 	}
 
+    @Override
+    public void actualizarPosicionBalas(String[] datos) {
+        String[] info = datos[1].split(",");
+        String idEnemigo = info[0];
+        float x = Float.parseFloat(info[1]);
+        float y = Float.parseFloat(info[2]);
+
+        for (EnemigoBase e : this.nivelActual.getEnemigos()) {
+            if (e.getNombre().equals(idEnemigo)) {
+                for (Proyectil b : e.getBalas()) {
+                    b.setPosition(x, y);
+                }
+            }
+        }
+    }
 
 
 }
