@@ -18,4 +18,6 @@ public interface GameController {
     void eliminarBala(String[] datos);
     void ganarPartida();
     void actualizarPosicionBalas(String[] datos);
+    void tirarErrorPorDesconexion();
+
 }

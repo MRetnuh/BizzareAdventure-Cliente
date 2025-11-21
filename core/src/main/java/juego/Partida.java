@@ -20,10 +20,7 @@ import mecanicas.*;
 import niveles.Nivel1;
 import niveles.Nivel2;
 import niveles.NivelBase;
-import pantallas.Menu;
-import pantallas.NivelSuperado;
-import pantallas.PantallaEspera;
-import pantallas.Victoria;
+import pantallas.*;
 import personajes.Personaje;
 import proyectiles.Proyectil;
 import red.HiloCliente;
@@ -419,6 +416,13 @@ public class Partida implements Screen, GameController {
                 }
             }
         }
+    }
+
+    public void tirarErrorPorDesconexion() {
+        // Mostrar pantalla de error
+        Gdx.app.postRunnable(() -> {
+            this.JUEGO.setScreen(new PantallaError(this.JUEGO, this.hiloCliente)); // Muestra una pantalla de error
+        });
     }
 
 
