@@ -49,11 +49,11 @@ public abstract class NivelBase {
     }
     
     public boolean detectarColision(Rectangle hitbox) {
-        return gestorColisiones.detectarColision(this.mapa, hitbox);
+        return this.gestorColisiones.detectarColision(this.mapa, hitbox);
     }
 
     public boolean destruirCajaEnHitbox(Rectangle hitbox) {
-        return gestorColisiones.destruirCajaEnHitbox(this.mapa, hitbox, this.cajasDestruidas);
+        return this.gestorColisiones.destruirCajaEnHitbox(this.mapa, hitbox, this.cajasDestruidas);
     }
     
     public void restaurarEstadoCajas() {

@@ -76,38 +76,38 @@ public abstract class Personaje extends Actor {
 
     private void asegurarAnimaciones() {
         // quieta
-        if (quietaDerecha != null && quietaIzquierda == null) {
-            TextureRegion copy = new TextureRegion(quietaDerecha);
+        if (this.quietaDerecha != null && this.quietaIzquierda == null) {
+            TextureRegion copy = new TextureRegion(this.quietaDerecha);
             copy.flip(true, false);
-            quietaIzquierda = copy;
+            this.quietaIzquierda = copy;
         }
 
         // animaciones de movimiento
-        if (animDerecha != null && animIzquierda == null) {
+        if (this.animDerecha != null && this.animIzquierda == null) {
             ArrayList<TextureRegion> frames = new ArrayList<>();
-            for (TextureRegion tr : animDerecha.getKeyFrames()) {
+            for (TextureRegion tr : this.animDerecha.getKeyFrames()) {
                 TextureRegion r = new TextureRegion(tr);
                 r.flip(true, false);
                 frames.add(r);
             }
-            animIzquierda = new Animation<>(animDerecha.getFrameDuration(), frames.toArray(new TextureRegion[0]));
-            animIzquierda.setPlayMode(animDerecha.getPlayMode());
+            this.animIzquierda = new Animation<>(this.animDerecha.getFrameDuration(), frames.toArray(new TextureRegion[0]));
+            this.animIzquierda.setPlayMode(this.animDerecha.getPlayMode());
         }
 
         // animacion ataque
-        if (animAtaqueDerecha != null && animAtaqueIzquierda == null) {
+        if (this.animAtaqueDerecha != null && this.animAtaqueIzquierda == null) {
             ArrayList<TextureRegion> frames = new ArrayList<>();
-            for (TextureRegion tr : animAtaqueDerecha.getKeyFrames()) {
+            for (TextureRegion tr : this.animAtaqueDerecha.getKeyFrames()) {
                 TextureRegion r = new TextureRegion(tr);
                 r.flip(true, false);
                 frames.add(r);
             }
-            animAtaqueIzquierda = new Animation<>(animAtaqueDerecha.getFrameDuration(), frames.toArray(new TextureRegion[0]));
-            animAtaqueIzquierda.setPlayMode(animAtaqueDerecha.getPlayMode());
+            this.animAtaqueIzquierda = new Animation<>(this.animAtaqueDerecha.getFrameDuration(), frames.toArray(new TextureRegion[0]));
+            this.animAtaqueIzquierda.setPlayMode(this.animAtaqueDerecha.getPlayMode());
         }
 
         // frame muerte
-        if (frameMuerte != null) {
+        if (this.frameMuerte != null) {
             // opcional: si no tenés versión izquierda y querés usar la misma (no estrictamente necesario)
         }
     }
@@ -169,29 +169,29 @@ public abstract class Personaje extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (this.vida <= 0) {
-            if (frameMuerte != null) batch.draw(frameMuerte, getX(), getY());
+            if (this.frameMuerte != null) batch.draw(this.frameMuerte, getX(), getY());
             return;
         }
 
         // Selección del frame según estado
         if (this.estaAtacando) {
-            frame = mirandoDerecha
-                    ? animAtaqueDerecha.getKeyFrame(tiempoAtaque, false)
-                    : animAtaqueIzquierda.getKeyFrame(tiempoAtaque, false);
+            this.frame = this.mirandoDerecha
+                    ? this.animAtaqueDerecha.getKeyFrame(this.tiempoAtaque, false)
+                    : this.animAtaqueIzquierda.getKeyFrame(this.tiempoAtaque, false);
         } else if (this.estaMoviendose) {
-            frame = mirandoDerecha
-                    ? animDerecha.getKeyFrame(estadoTiempo, true)
-                    : animIzquierda.getKeyFrame(estadoTiempo, true);
+            this.frame = this.mirandoDerecha
+                    ? this.animDerecha.getKeyFrame(this.estadoTiempo, true)
+                    : this.animIzquierda.getKeyFrame(this.estadoTiempo, true);
         } else {
-            estadoTiempo = 0f; // Reinicia tiempo cuando no se mueve
-            frame = mirandoDerecha ? quietaDerecha : quietaIzquierda;
+            this.estadoTiempo = 0f; // Reinicia tiempo cuando no se mueve
+            this.frame = this.mirandoDerecha ? this.quietaDerecha : this.quietaIzquierda;
         }
 
-        if (frame != null)
-            batch.draw(frame, getX(), getY());
+        if (this.frame != null)
+            batch.draw(this.frame, getX(), getY());
 
         // Dibujar proyectiles
-        for (Proyectil p : balas) {
+        for (Proyectil p : this.balas) {
             if (p.isActivo())
                 p.draw(batch, parentAlpha);
         }
@@ -204,18 +204,18 @@ public abstract class Personaje extends Actor {
         super.act(delta);
 
         // Actualizar proyectiles
-        Iterator<Proyectil> it = balas.iterator();
+        Iterator<Proyectil> it = this.balas.iterator();
         while (it.hasNext()) {
             Proyectil p = it.next();
-            p.mover(delta, nivel, this);
+            p.mover(delta, this.nivel, this);
             if (!p.isActivo()) it.remove();
         }
 
         // Manejo de animaciones de ataque
         if (this.estaAtacando) {
             this.tiempoAtaque += delta;
-            boolean finAtaque = (mirandoDerecha && animAtaqueDerecha.isAnimationFinished(tiempoAtaque))
-                    || (!mirandoDerecha && animAtaqueIzquierda.isAnimationFinished(tiempoAtaque));
+            boolean finAtaque = (this.mirandoDerecha && this.animAtaqueDerecha.isAnimationFinished(this.tiempoAtaque))
+                    || (!this.mirandoDerecha && this.animAtaqueIzquierda.isAnimationFinished(this.tiempoAtaque));
             if (finAtaque) {
                 this.estaAtacando = false;
                 this.tiempoAtaque = 0f;
@@ -247,7 +247,7 @@ public abstract class Personaje extends Actor {
                         (!this.mirandoDerecha && this.animAtaqueIzquierda.isAnimationFinished(this.tiempoAtaque))) {
                     this.estaAtacando = false;
                     this.tiempoAtaque = 0f;
-                    disparoRealizado = false;
+                    this.disparoRealizado = false;
                 }
             }
         }
@@ -261,7 +261,7 @@ public abstract class Personaje extends Actor {
 
             if (this.tipoAtaque == TipoAtaque.DISTANCIA) {
                 this.tiempoAtaque += 0.5;
-                String ruta = mirandoDerecha
+                String ruta = this.mirandoDerecha
                         ? "imagenes/personajes/enemigo/ataque/Bala_Derecha.png"
                         : "imagenes/personajes/enemigo/ataque/Bala_Izquierda.png";
 
@@ -300,7 +300,7 @@ public abstract class Personaje extends Actor {
     }
 
     public float getVelocidadCaida() {
-        return velocidadCaida;
+        return this.velocidadCaida;
     }
 
     public void setVelocidadCaida(float v) {

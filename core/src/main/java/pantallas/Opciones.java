@@ -47,9 +47,9 @@ public class Opciones implements Screen {
         Label titulo = new Label("Opciones", EstiloTexto.ponerEstiloLabel(60, Color.WHITE));
         titulo.setAlignment(Align.center);
 
-        TextButton controlesBtn = new TextButton("Controles", EstiloTexto.ponerEstiloBoton(skin, 48, Color.PURPLE));
-        TextButton sonidoBtn = new TextButton("Sonido", EstiloTexto.ponerEstiloBoton(skin, 48, Color.PURPLE));
-        TextButton volverBtn = new TextButton("Volver", EstiloTexto.ponerEstiloBoton(skin,48, Color.PURPLE));
+        TextButton controlesBtn = new TextButton("Controles", EstiloTexto.ponerEstiloBoton(this.skin, 48, Color.PURPLE));
+        TextButton sonidoBtn = new TextButton("Sonido", EstiloTexto.ponerEstiloBoton(this.skin, 48, Color.PURPLE));
+        TextButton volverBtn = new TextButton("Volver", EstiloTexto.ponerEstiloBoton(this.skin,48, Color.PURPLE));
         
         sonidoBtn.addListener(new ListenerBotonTexto("Sonido", new Runnable() {
             @Override

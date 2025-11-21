@@ -21,7 +21,7 @@ public class ListenerBotonTexto extends InputListener {
     public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
         if (pointer == -1) { 
             if (event.getListenerActor() instanceof TextButton) {
-                ((TextButton) event.getListenerActor()).setText(textoHover);
+                ((TextButton) event.getListenerActor()).setText(this.textoHover);
             }
         }
     }
@@ -30,7 +30,7 @@ public class ListenerBotonTexto extends InputListener {
     public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
         if (pointer == -1) {
             if (event.getListenerActor() instanceof TextButton) {
-                ((TextButton) event.getListenerActor()).setText(textoNormal);
+                ((TextButton) event.getListenerActor()).setText(this.textoNormal);
             }
         }
     }
@@ -41,8 +41,8 @@ public class ListenerBotonTexto extends InputListener {
 
     @Override
     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-        if (accionClic != null) {
-            accionClic.run(); 
+        if (this.accionClic != null) {
+           this.accionClic.run(); 
         }
     }
 }

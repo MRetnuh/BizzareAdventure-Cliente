@@ -48,13 +48,13 @@ public class Menu implements Screen {
         this.fondoTextura = new Texture(Gdx.files.internal("imagenes/fondos/Portada.jpg"));
         this.fondoImagen = new Image(this.fondoTextura);
         this.fondoImagen.setFillParent(true);
-        this.stage.addActor(fondoImagen);
+        this.stage.addActor(this.fondoImagen);
 
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
    
-        TextButton jugarBtn = new TextButton("Jugar", EstiloTexto.ponerEstiloBoton(skin, 70, Color.PURPLE));
-        TextButton opcionesBtn = new TextButton("Opciones", EstiloTexto.ponerEstiloBoton(skin, 70, Color.PURPLE));
-        TextButton salirBtn = new TextButton("Salir", EstiloTexto.ponerEstiloBoton(skin, 70, Color.PURPLE));
+        TextButton jugarBtn = new TextButton("Jugar", EstiloTexto.ponerEstiloBoton(this.skin, 70, Color.PURPLE));
+        TextButton opcionesBtn = new TextButton("Opciones", EstiloTexto.ponerEstiloBoton(this.skin, 70, Color.PURPLE));
+        TextButton salirBtn = new TextButton("Salir", EstiloTexto.ponerEstiloBoton(this.skin, 70, Color.PURPLE));
 
         jugarBtn.addListener(new ListenerBotonTexto("Jugar", new Runnable() {
             @Override

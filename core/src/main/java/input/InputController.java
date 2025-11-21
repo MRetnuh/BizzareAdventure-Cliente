@@ -80,11 +80,11 @@ public class InputController implements InputProcessor {
 	}
 	
 	public void resetearInputs() {
-	    derecha1 = false;
-	    izquierda1 = false;
-	    saltar1 = false;
-	    atacar1 = false;
-	    opciones1 = false;
+	    this.derecha1 = false;
+	    this.izquierda1 = false;
+	    this.saltar1 = false;
+	    this.atacar1 = false;
+	    this.opciones1 = false;
 	}
 
 	

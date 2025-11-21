@@ -47,7 +47,6 @@ public class Jugador {
     }
 
 	public int getNumPlayer() {
-		// TODO Auto-generated method stub
-		return id;
+		return this.id;
 	}
 }

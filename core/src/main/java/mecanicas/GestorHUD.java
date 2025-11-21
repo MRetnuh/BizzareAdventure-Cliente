@@ -34,32 +34,32 @@ public class GestorHUD {
     
     private void inicializarHUD() {
         this.nombrePersonaje1Label = new Label(
-            "Nombre: " + jugador1.getPersonajeElegido().getNombre(),
+            "Nombre: " + this.jugador1.getPersonajeElegido().getNombre(),
             EstiloTexto.ponerEstiloLabel(40, Color.RED)
         );
         this.vidaPersonaje1Label = new Label(
-            "Vida: " + jugador1.getPersonajeElegido().getVida(),
+            "Vida: " + this.jugador1.getPersonajeElegido().getVida(),
             EstiloTexto.ponerEstiloLabel(40, Color.RED)
         );
 
         this.nombrePersonaje2Label = new Label(
-            "Nombre: " + jugador2.getPersonajeElegido().getNombre(),
+            "Nombre: " + this.jugador2.getPersonajeElegido().getNombre(),
             EstiloTexto.ponerEstiloLabel(40, Color.BLUE)
         );
         this.vidaPersonaje2Label = new Label(
-            "Vida: " + jugador2.getPersonajeElegido().getVida(),
+            "Vida: " + this.jugador2.getPersonajeElegido().getVida(),
             EstiloTexto.ponerEstiloLabel(40, Color.BLUE)
         );
 
         Table table1 = new Table();
         table1.left().top();
-        table1.add(nombrePersonaje1Label).size(350, 50).padBottom(5).row();
-        table1.add(vidaPersonaje1Label).size(350, 50);
+        table1.add(this.nombrePersonaje1Label).size(350, 50).padBottom(5).row();
+        table1.add(this.vidaPersonaje1Label).size(350, 50);
 
         Table table2 = new Table();
         table2.right().top();
-        table2.add(nombrePersonaje2Label).size(350, 50).padBottom(5).row();
-        table2.add(vidaPersonaje2Label).size(350, 50);
+        table2.add(this.nombrePersonaje2Label).size(350, 50).padBottom(5).row();
+        table2.add(this.vidaPersonaje2Label).size(350, 50);
 
         // Contenedores visuales
         Container<Table> cont1 = new Container<>(table1);
@@ -79,18 +79,18 @@ public class GestorHUD {
     }
     
     public void actualizar() {
-        if (jugador1.getPersonajeElegido() != null) {
-            this.nombrePersonaje1Label.setText("Nombre: " + jugador1.getPersonajeElegido().getNombre());
-            this.vidaPersonaje1Label.setText("Vida: " + jugador1.getPersonajeElegido().getVida());
+        if (this.jugador1.getPersonajeElegido() != null) {
+            this.nombrePersonaje1Label.setText("Nombre: " + this.jugador1.getPersonajeElegido().getNombre());
+            this.vidaPersonaje1Label.setText("Vida: " + this.jugador1.getPersonajeElegido().getVida());
         }
 
-        if (jugador2.getPersonajeElegido() != null) {
-            this.nombrePersonaje2Label.setText("Nombre: " + jugador2.getPersonajeElegido().getNombre());
-            this.vidaPersonaje2Label.setText("Vida: " + jugador2.getPersonajeElegido().getVida());
+        if (this.jugador2.getPersonajeElegido() != null) {
+            this.nombrePersonaje2Label.setText("Nombre: " + this.jugador2.getPersonajeElegido().getNombre());
+            this.vidaPersonaje2Label.setText("Vida: " + this.jugador2.getPersonajeElegido().getVida());
         }
     }
     
     public void dispose() {
-        if (skin != null) skin.dispose();
+        if (this.skin != null) this.skin.dispose();
     }
 }

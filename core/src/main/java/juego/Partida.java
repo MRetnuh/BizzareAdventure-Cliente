@@ -153,13 +153,13 @@ public class Partida implements Screen, GameController {
 	public void empezar(int p1Id, int p2Id) {
 	    // Ejecutar en el hilo principal de render de LibGDX
 	    Gdx.app.postRunnable(() -> {
-	        this.JUGADORES[JUGADOR1].asignarPersonaje(p1Id);
-	        this.JUGADORES[JUGADOR2].asignarPersonaje(p2Id);
+	        this.JUGADORES[this.JUGADOR1].asignarPersonaje(p1Id);
+	        this.JUGADORES[this.JUGADOR2].asignarPersonaje(p2Id);
 
 	        this.juegoEmpezado = true;
 
 	        if (!this.nivelIniciado) {
-	        	this.gestorNiveles = new GestorNiveles(JUEGO, this.niveles, this.nivelActual);
+	        	this.gestorNiveles = new GestorNiveles(this.JUEGO, this.niveles, this.nivelActual);
 	            this.nivelIniciado = true;
 	            this.gestorNiveles.inicializarNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage);
 	            this.gestorHUD = new GestorHUD(this.stageHUD,
@@ -179,9 +179,9 @@ public class Partida implements Screen, GameController {
 	@Override
 	public void perder() {
 		 Gdx.app.postRunnable(() -> {
-		        musicaPartida.cambiarMusica("Derrota");
-		        JUGADORES[0].getPersonajeElegido().morir(stageHUD, this.hiloCliente);
-		        JUGADORES[1].getPersonajeElegido().morir(stageHUD, this.hiloCliente);
+		        this.musicaPartida.cambiarMusica("Derrota");
+		        this.JUGADORES[0].getPersonajeElegido().morir(this.stageHUD, this.hiloCliente);
+		        this.JUGADORES[1].getPersonajeElegido().morir(this.stageHUD, this.hiloCliente);
 		    });
 	}
 
@@ -237,7 +237,7 @@ public class Partida implements Screen, GameController {
 	    if (!this.juegoEmpezado) return;
 
 	    int index = idJugador - 1;
-	    if (index < 0 || index >= JUGADORES.length) return;
+	    if (index < 0 || index >= this.JUGADORES.length) return;
 
 	    Personaje p = this.JUGADORES[index].getPersonajeElegido();
 
@@ -345,11 +345,11 @@ public class Partida implements Screen, GameController {
 	    Gdx.app.postRunnable(() -> {
 	        String nivelAnterior = datos[1];
 	        String siguiente = datos[2];
-	        JUEGO.setScreen(new NivelSuperado(nivelAnterior, JUEGO, siguiente, this));
+	        this.JUEGO.setScreen(new NivelSuperado(nivelAnterior, this.JUEGO, siguiente, this));
 	   
 	    	this.nivelActual = this.niveles[Integer.parseInt(datos[3])];
-	    	this.gestorNiveles = new GestorNiveles(JUEGO, this.niveles, this.nivelActual);
-	    	this.gestorNiveles.inicializarNivel(JUGADORES, JUGADOR1, JUGADOR2, stage); });
+	    	this.gestorNiveles = new GestorNiveles(this.JUEGO, this.niveles, this.nivelActual);
+	    	this.gestorNiveles.inicializarNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage); });
 	}
 
 	@Override
@@ -371,7 +371,7 @@ public class Partida implements Screen, GameController {
 		int idJugador = Integer.parseInt(datos[1]) - 1;
 		float delta = Float.parseFloat(datos[2]);
 		Gdx.app.postRunnable(() -> {
-		this.JUGADORES[idJugador].getPersonajeElegido().iniciarAtaque(this.musicaPartida.getVolumen(), delta, nivelActual);
+		this.JUGADORES[idJugador].getPersonajeElegido().iniciarAtaque(this.musicaPartida.getVolumen(), delta, this.nivelActual);
 		this.JUGADORES[idJugador].getPersonajeElegido().setEstaAtacando(true);
 		
 		});

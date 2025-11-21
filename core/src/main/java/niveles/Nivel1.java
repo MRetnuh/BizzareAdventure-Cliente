@@ -5,8 +5,6 @@ import enemigos.TipoEnemigo;
 import enemigos.EnemigoBase;
 import enemigos.EnemigoPerseguidor;
 import enemigos.EnemigoPesado;
-import personajes.Personaje;
-import personajes.TipoAtaque;
 
 public class Nivel1 extends NivelBase {
 

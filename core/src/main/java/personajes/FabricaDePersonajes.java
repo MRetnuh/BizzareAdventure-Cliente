@@ -90,7 +90,7 @@ public enum FabricaDePersonajes {
     }
 
     public Personaje crear() {
-        Personaje pj = new Personaje(nombre, velocidad, nombreAtaque, vida, tipoAtaque) {
+        Personaje pj = new Personaje(this.nombre, this.velocidad, this.nombreAtaque, this.vida, this.tipoAtaque) {
             @Override
             protected void cargarTexturas() {
                 Array<TextureRegion> framesDerecha = new Array<>();

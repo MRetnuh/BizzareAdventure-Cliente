@@ -37,13 +37,13 @@ public class Victoria implements Screen {
         Gdx.input.setInputProcessor(this.stage);
         this.skin = new Skin(Gdx.files.internal("uiskin.json"));
 
-        titulo = new Label("Ganaste el juego", EstiloTexto.ponerEstiloLabel(60, Color.PURPLE));
-        titulo.setAlignment(Align.center);
+        this.titulo = new Label("Ganaste el juego", EstiloTexto.ponerEstiloLabel(60, Color.PURPLE));
+        this.titulo.setAlignment(Align.center);
 
         Table tabla = new Table();
         tabla.setFillParent(true);
         tabla.center();
-        tabla.add(titulo).padBottom(5);
+        tabla.add(this.titulo).padBottom(5);
 
         this.stage.addActor(tabla);
     }
@@ -53,16 +53,16 @@ public class Victoria implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stage.act(delta);
-        stage.draw();
+        this.stage.act(delta);
+        this.stage.draw();
 
         // ⬇⬇⬇ NUEVO: sumar tiempo
-        tiempoTranscurrido += delta;
+        this.tiempoTranscurrido += delta;
 
         // Pasados 5 segundos → cambiar pantalla
-        if (!cambioRealizado && tiempoTranscurrido >= 5f) {
+        if (!this.cambioRealizado && this.tiempoTranscurrido >= 5f) {
 
-            cambioRealizado = true; 
+            this.cambioRealizado = true; 
             
             
         }
@@ -75,7 +75,7 @@ public class Victoria implements Screen {
 
     @Override
     public void dispose() {
-        stage.dispose();
-        if (skin != null) skin.dispose();
+        this.stage.dispose();
+        if (this.skin != null) this.skin.dispose();
     }
 }

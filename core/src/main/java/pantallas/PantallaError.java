@@ -33,8 +33,8 @@ public class PantallaError implements Screen{
 	        this.skin = new Skin(Gdx.files.internal("uiskin.json"));
 
 	        // Texto principal
-	        titulo = new Label("Error inesperado", EstiloTexto.ponerEstiloLabel(60, Color.PURPLE));
-	        titulo.setAlignment(Align.center);
+	        this.titulo = new Label("Error inesperado", EstiloTexto.ponerEstiloLabel(60, Color.PURPLE));
+	        this.titulo.setAlignment(Align.center);
 
 	      
 	        // ======================================
@@ -43,7 +43,7 @@ public class PantallaError implements Screen{
 	        tabla.setFillParent(true);
 	        tabla.center();
 
-	        tabla.add(titulo).padBottom(5);
+	        tabla.add(this.titulo).padBottom(5);
 
 	        this.stage.addActor(tabla);
 	    }
@@ -55,8 +55,8 @@ public class PantallaError implements Screen{
 	        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-	        stage.act(delta);
-	        stage.draw();
+	        this.stage.act(delta);
+	        this.stage.draw();
 	    }
 
 	    @Override public void resize(int width, int height) {}
@@ -66,7 +66,7 @@ public class PantallaError implements Screen{
 
 	    @Override
 	    public void dispose() {
-	        stage.dispose();
-	        if (skin != null) skin.dispose();
+	        this.stage.dispose();
+	        if (this.skin != null) this.skin.dispose();
 	    }
 	}
