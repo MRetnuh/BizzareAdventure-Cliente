@@ -22,6 +22,7 @@ import audios.Musica;
 import estilos.EstiloTexto;
 import estilos.ListenerBotonTexto;
 import io.github.some.Principal;
+import red.HiloCliente;
 
 public class Opciones implements Screen {
 	private Screen screenAnterior;
@@ -29,7 +30,7 @@ public class Opciones implements Screen {
     private Stage stage;
     private Skin skin;
     private Musica musicaOpciones;
-    
+    private HiloCliente hiloCliente;
     public Opciones(Game juego, Screen screenAnterior, Musica musica) {
         this.JUEGO = juego;
         this.musicaOpciones = musica;
@@ -70,6 +71,7 @@ public class Opciones implements Screen {
             @Override
             public void run() {
             	  JUEGO.setScreen(screenAnterior);
+            	  hiloCliente.sendMessage("ActivarEnJuego");
             }
         }));
         
@@ -102,6 +104,10 @@ public class Opciones implements Screen {
     public void dispose() {
     	this.stage.dispose();
     	this.skin.dispose();
+    }
+    
+    public void SetHiloCliente(HiloCliente hiloCliente) {
+    	this.hiloCliente = hiloCliente;
     }
 }
 

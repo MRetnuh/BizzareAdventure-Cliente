@@ -148,6 +148,7 @@ public class Partida implements Screen, GameController {
 
 	@Override
 	public void empezar(int p1Id, int p2Id) {
+	    this.hiloCliente.setEnJuego(true);
 	    // Ejecutar en el hilo principal de render de LibGDX
 	    Gdx.app.postRunnable(() -> {
 	        this.JUGADORES[this.JUGADOR1].asignarPersonaje(p1Id);

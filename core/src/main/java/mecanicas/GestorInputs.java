@@ -32,7 +32,11 @@ public class GestorInputs {
 
         // Limpiar los ataques/acciones de botón único
         if (atacar) {inputController.setAtacarFalso1();}
-        if (inputController.getOpciones1()) {juego.setScreen(new Opciones(juego, partidaActual, musicaPartida));
-        inputController.setOpcionesFalso1();}
+        if (inputController.getOpciones1()) {
+        	hiloCliente.sendMessage("DetenerEnJuego");
+        	Opciones opciones = new Opciones(juego, partidaActual, musicaPartida);
+        	opciones.SetHiloCliente(hiloCliente);
+        	juego.setScreen(opciones);
+        	inputController.setOpcionesFalso1();}
 }
 }

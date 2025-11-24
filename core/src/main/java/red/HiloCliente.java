@@ -19,10 +19,10 @@ public class HiloCliente extends Thread {
     private boolean fin = false;
     private GameController gameController;
     private boolean conexionEntreJugadores = false;
-
+    private boolean enJuego = false;
     // Control de timeout
     private long ultimaActividadServidor = System.currentTimeMillis();
-    private static final long TIMEOUT_SERVIDOR = 4000; // 4 segundos
+    private final long TIMEOUT_SERVIDOR = 4000; 
 
     public HiloCliente(GameController gameController) {
         try {
@@ -51,8 +51,15 @@ public class HiloCliente extends Thread {
     }
 
     private void verificarTimeout() {
-        // Hilo para verificar si el servidor no responde
         while (!fin) {
+
+            // ❗ Si NO estás en partida, no hacer timeout
+            if (!enJuego) {
+                ultimaActividadServidor = System.currentTimeMillis();
+                try { Thread.sleep(500); } catch (Exception e){}
+                continue;
+            }
+
             long ahora = System.currentTimeMillis();
             if (ahora - ultimaActividadServidor > TIMEOUT_SERVIDOR) {
                 System.out.println("Servidor no responde. Desconectado.");
@@ -60,13 +67,10 @@ public class HiloCliente extends Thread {
                 break;
             }
 
-            try {
-                Thread.sleep(500); // Revisa cada 500ms
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            try { Thread.sleep(500); } catch (InterruptedException e) {}
         }
     }
+
 
     private void procesarMensaje(DatagramPacket packet) {
         String mensaje = (new String(packet.getData())).trim();
@@ -165,17 +169,14 @@ public class HiloCliente extends Thread {
     public boolean getConexionEntreJugadores() {
         return this.conexionEntreJugadores;
     }
+    
+    public void setEnJuego(boolean e) {
+        this.enJuego = e;
+        sendMessage("ActivarEnJuego");
+    }
 
     private void desconectarPorTimeout() {
-        if (fin) return;
-        fin = true;
-
-        try {
-            this.socket.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+       finalizar();
         // Avisar al juego sobre la desconexión por timeout
         Gdx.app.postRunnable(() -> {
             gameController.tirarErrorPorDesconexion();
