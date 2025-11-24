@@ -177,6 +177,7 @@ public class Partida implements Screen, GameController {
 	@Override
 	public void perder() {
 		 Gdx.app.postRunnable(() -> {
+			 	this.hiloCliente.setEnJuego(false);
 		        this.musicaPartida.cambiarMusica("Derrota");
 		        this.JUGADORES[0].getPersonajeElegido().morir(this.stageHUD, this.hiloCliente);
 		        this.JUGADORES[1].getPersonajeElegido().morir(this.stageHUD, this.hiloCliente);
@@ -340,14 +341,15 @@ public class Partida implements Screen, GameController {
 
 	@Override
 	public void avanzarNivel(String[] datos) {
+		this.hiloCliente.setEnJuego(false);
 	    Gdx.app.postRunnable(() -> {
 	        String nivelAnterior = datos[1];
 	        String siguiente = datos[2];
 	        this.JUEGO.setScreen(new NivelSuperado(nivelAnterior, this.JUEGO, siguiente, this));
-	   
 	    	this.nivelActual = this.niveles[Integer.parseInt(datos[3])];
+	    	this.hiloCliente.sendMessage("DetenerEnJuego");
 	    	this.gestorNiveles = new GestorNiveles(this.JUEGO, this.niveles, this.nivelActual);
-	    	this.gestorNiveles.inicializarNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage); });
+	    	this.gestorNiveles.inicializarNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage); }); 
 	}
 
 	@Override
@@ -397,6 +399,7 @@ public class Partida implements Screen, GameController {
 
 	@Override
 	public void ganarPartida() {
+		this.hiloCliente.setEnJuego(false);
 		  Gdx.app.postRunnable(() -> {
 			  this.JUEGO.setScreen(new Victoria(this.JUEGO, this.hiloCliente));
 		  });
