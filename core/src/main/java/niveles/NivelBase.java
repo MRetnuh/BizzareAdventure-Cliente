@@ -71,10 +71,6 @@ public abstract class NivelBase {
         if (this.mapa != null) this.mapa.dispose();
         if (this.mapRenderer != null) this.mapRenderer.dispose();
     }
-    
-    public void agregarEnemigosMuertos(EnemigoBase enemigo) {
-    	this.enemigosMuertos.add(enemigo.getNombre());
-    }  
 
     public OrthogonalTiledMapRenderer getMapRenderer() { return this.mapRenderer; }
     public List<EnemigoBase> getEnemigos() { return this.enemigos; }

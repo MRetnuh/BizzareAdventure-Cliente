@@ -35,7 +35,6 @@ public class HiloCliente extends Thread {
 
     @Override
     public void run() {
-        // Hilo principal que recibe mensajes
         new Thread(this::verificarTimeout).start(); // Comienza el hilo de control de timeout
 
         do {
@@ -50,20 +49,19 @@ public class HiloCliente extends Thread {
     }
 
     private void verificarTimeout() {
-        while (!fin) {
+        while (!this.fin) {
 
             // ❗ Si NO estás en partida, no hacer timeout
-            if (!enJuego) {
-                ultimaActividadServidor = System.currentTimeMillis();
+            if (!this.enJuego) {
+                this.ultimaActividadServidor = System.currentTimeMillis();
                 try { Thread.sleep(500); } catch (Exception e){}
                 continue;
             }
 
             long ahora = System.currentTimeMillis();
-            if (ahora - ultimaActividadServidor > TIMEOUT_SERVIDOR) {
+            if (ahora - this.ultimaActividadServidor > this.TIMEOUT_SERVIDOR) {
                 System.out.println("Servidor no responde. Desconectado.");
                 desconectarPorTimeout();
-                break;
             }
 
             try { Thread.sleep(500); } catch (InterruptedException e) {}
@@ -73,7 +71,7 @@ public class HiloCliente extends Thread {
 
     private void procesarMensaje(DatagramPacket packet) {
         String mensaje = (new String(packet.getData())).trim();
-        ultimaActividadServidor = System.currentTimeMillis();  // Actualiza el tiempo de última actividad
+        this.ultimaActividadServidor = System.currentTimeMillis();  // Actualiza el tiempo de última actividad
         String[] partes = mensaje.split(":");
 
         System.out.println("Mensaje recibido: " + mensaje);
@@ -85,7 +83,7 @@ public class HiloCliente extends Thread {
             case "Conectado":
                 System.out.println("Conectado al servidor");
                 this.ipServidor = packet.getAddress();
-                gameController.conectar(Integer.parseInt(partes[1]));
+                this.gameController.conectar(Integer.parseInt(partes[1]));
                 break;
             case "Lleno":
                 System.out.println("Servidor lleno");
@@ -178,7 +176,7 @@ public class HiloCliente extends Thread {
        finalizar();
         // Avisar al juego sobre la desconexión por timeout
         Gdx.app.postRunnable(() -> {
-            gameController.tirarErrorPorDesconexion();
+            this.gameController.tirarErrorPorDesconexion();
         });
     }
 }

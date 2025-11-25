@@ -64,7 +64,7 @@ public class EnemigoPerseguidor extends EnemigoBase {
         Rectangle hitbox = new Rectangle(nuevaX, getY(), getWidth(), getHeight());
 
         if (!nivel.detectarColision(hitbox)) {
-            aplicarMovimiento(nuevaX, getY(), delta, 10000, 1000);
+            super.aplicarMovimiento(nuevaX, getY(), delta, 10000, 1000);
         }
 
         super.mirandoDerecha = direccion > 0;
