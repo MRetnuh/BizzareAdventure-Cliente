@@ -51,7 +51,7 @@ public class GestorNiveles {
 
     public void comprobarVictoriaYAvanzar(Jugador[] jugadores, Partida partida) {
 
-        boolean victoria = nivelActual.comprobarVictoria(
+        boolean victoria = this.nivelActual.comprobarVictoria(
             jugadores[0].getPersonajeElegido().getX(),
             jugadores[0].getPersonajeElegido().getY(),
             jugadores[1].getPersonajeElegido().getX(),
@@ -59,22 +59,16 @@ public class GestorNiveles {
         );
 
         if (victoria) {
-        	 indiceNivelActual++;
+        	 this.indiceNivelActual++;
                 NivelSuperado nivelSuperado = new NivelSuperado(
                         this.nivelActual.getNombreNivel(),
                         this.JUEGO,
-                        niveles[this.indiceNivelActual].getNombreNivel(),
+                        this.niveles[this.indiceNivelActual].getNombreNivel(),
                         partida
                 );
-                JUEGO.setScreen(nivelSuperado);
+                this.JUEGO.setScreen(nivelSuperado);
             }
         }
-    
-    public void inicializarSiguienteNivel(Jugador[] jugadores, int jugador1, int jugador2,
-                                          Stage stage) {
-    		this.nivelActual = this.niveles[this.indiceNivelActual];
-            inicializarNivel(jugadores, jugador1, jugador2, stage);
-    }
     
     public NivelBase getNivelActual() {
         return this.nivelActual;

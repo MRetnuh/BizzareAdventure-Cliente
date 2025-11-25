@@ -136,7 +136,6 @@ public class Partida implements Screen, GameController {
 	@Override
 	public void empezar(int p1Id, int p2Id) {
 	    this.hiloCliente.setEnJuego(true);
-	    // Ejecutar en el hilo principal de render de LibGDX
 	    Gdx.app.postRunnable(() -> {
 	        this.JUGADORES[this.JUGADOR1].asignarPersonaje(p1Id);
 	        this.JUGADORES[this.JUGADOR2].asignarPersonaje(p2Id);
@@ -183,7 +182,7 @@ public class Partida implements Screen, GameController {
 	@Override
 	public void actualizarEstado(String[] datos) {
 		if (this.juegoEmpezado) {
-	    // Formato: [0:UpdateState, 1:1, 2:posX1, 3:posY1, 4:vida1, 5:ESTADO1, 6:2, 7:posX2, 8:posY2, 9:vida2, 10:ESTADO2]
+	    // Formato: [0:UpdateState, 1:1, 2:posX1, 3:posY1, 4:vida1, 6:2, 7:posX2, 8:posY2, 9:vida2]
 
 	    // --- JUGADOR 1 (Índice 0) ---
 	    Personaje p1 = this.JUGADORES[this.JUGADOR1].getPersonajeElegido();
@@ -245,7 +244,6 @@ public class Partida implements Screen, GameController {
 		for (int i = 1; i < datos.length; i++) {
 
 			String[] info = datos[i].split(",");
-			if (info.length < 6) continue;
 
 			String id = info[0];
 			float x = Float.parseFloat(info[1]);
@@ -254,7 +252,7 @@ public class Partida implements Screen, GameController {
 			boolean mirandoDer = Boolean.parseBoolean(info[4]);
 			boolean moviendose = Boolean.parseBoolean(info[5]);
 
-			for (EnemigoBase enemigo : nivelActual.getEnemigos()) {
+			for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
 				if (enemigo.getNombre().equals(id)) {
 
 					enemigo.setX(x);
@@ -263,7 +261,6 @@ public class Partida implements Screen, GameController {
 					enemigo.setMirandoDerecha(mirandoDer);
 					enemigo.setEstaMoviendose(moviendose);
 
-					break;
 				}
 			}
 		}
@@ -282,11 +279,10 @@ public class Partida implements Screen, GameController {
 		for (EnemigoBase enemigo : this.nivelActual.getEnemigos()) {
 			if (enemigo.getNombre().equals(idEnemigo) && enemigo.getVida() > 0) {
 
-				// Evitar duplicados
 				for (Proyectil existente : enemigo.getBalas()) {
 					if (Math.abs(existente.getX() - x) < 5f &&
 							Math.abs(existente.getY() - y) < 5f) {
-						return; // Bala ya existe
+						return; 
 					}
 				}
 				Gdx.app.postRunnable(() -> {
@@ -376,7 +372,7 @@ public class Partida implements Screen, GameController {
 				while (it.hasNext()) {
 					Proyectil b = it.next();
 					it.remove();
-					b.remove(); // remover del stage
+					b.remove(); 
 				}
 
 				return;
@@ -410,9 +406,8 @@ public class Partida implements Screen, GameController {
     }
 
     public void tirarErrorPorDesconexion() {
-        // Mostrar pantalla de error
         Gdx.app.postRunnable(() -> {
-            this.JUEGO.setScreen(new PantallaError(this.JUEGO, this.hiloCliente)); // Muestra una pantalla de error
+            this.JUEGO.setScreen(new PantallaError(this.JUEGO, this.hiloCliente)); 
         });
     }
 
