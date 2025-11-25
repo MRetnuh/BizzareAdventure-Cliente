@@ -51,7 +51,7 @@ public class Proyectil extends Actor {
         }
     }
 
-    public Rectangle getHitbox() {
+    private Rectangle getHitbox() {
         return new Rectangle(super.getX(), super.getY(), super.getWidth(), super.getHeight());
     }
 
@@ -73,8 +73,4 @@ public class Proyectil extends Actor {
         return this.activa;
     }
 
-	public void setActivo(boolean b) {
-		this.activa = b;
-		
-	}
 }

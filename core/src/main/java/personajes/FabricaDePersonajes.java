@@ -57,17 +57,17 @@ public enum FabricaDePersonajes {
 
     );
 
-    private final String nombre;
-    private final int velocidad;
-    private final String nombreAtaque;
-    private final int vida;
-    private final String rutaMovDerecha, rutaMovIzquierda;
-    private final String rutaAtaqueDerecha, rutaAtaqueIzquierda;
-    private final String rutaQuietoDerecha, rutaQuietoIzquierda;
-    private final TipoAtaque tipoAtaque;
-    private final String rutaMuerte;
-    final private int cantSpriteMovimiento;
-    final private int cantSpriteAtaque;
+    private String nombre;
+    private int velocidad;
+    private String nombreAtaque;
+    private int vida;
+    private String rutaMovDerecha, rutaMovIzquierda;
+    private String rutaAtaqueDerecha, rutaAtaqueIzquierda;
+    private String rutaQuietoDerecha, rutaQuietoIzquierda;
+    private TipoAtaque tipoAtaque;
+    private String rutaMuerte;
+    private int cantSpriteMovimiento;
+    private int cantSpriteAtaque;
     FabricaDePersonajes(String nombre, int velocidad, String nombreAtaque, int vida,TipoAtaque tipoAtaque,
                         String rutaMovDerecha, String rutaMovIzquierda,
                         String rutaAtaqueDerecha, String rutaAtaqueIzquierda,

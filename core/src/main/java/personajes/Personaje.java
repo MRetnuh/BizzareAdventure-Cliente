@@ -37,7 +37,6 @@ public abstract class Personaje extends Actor {
     private float velocidadCaida = 0;
     private float tiempoAtaque = 0f;
     private TipoAtaque tipoAtaque;
-    private boolean disparoRealizado = false;
     private NivelBase nivel;
 
     protected TextureRegion frameMuerte;
@@ -62,55 +61,12 @@ public abstract class Personaje extends Actor {
         this.nombreAtaque = nombreAtaque;
         this.vida = vida;
         this.cargarTexturas();
-        // Aseguramos que haya versiones "izquierda" si no fueron creadas explícitamente
-        asegurarAnimaciones();
         this.tipoAtaque = tipoAtaque;
-        super.setX(200);
-        super.setY(930);
-        if (this.quietaDerecha != null) {
-            setSize(this.quietaDerecha.getRegionWidth(), this.quietaDerecha.getRegionHeight());
-        }
+        setSize(this.quietaDerecha.getRegionWidth(), this.quietaDerecha.getRegionHeight());
     }
 
     protected abstract void cargarTexturas();
 
-    private void asegurarAnimaciones() {
-        // quieta
-        if (this.quietaDerecha != null && this.quietaIzquierda == null) {
-            TextureRegion copy = new TextureRegion(this.quietaDerecha);
-            copy.flip(true, false);
-            this.quietaIzquierda = copy;
-        }
-
-        // animaciones de movimiento
-        if (this.animDerecha != null && this.animIzquierda == null) {
-            ArrayList<TextureRegion> frames = new ArrayList<>();
-            for (TextureRegion tr : this.animDerecha.getKeyFrames()) {
-                TextureRegion r = new TextureRegion(tr);
-                r.flip(true, false);
-                frames.add(r);
-            }
-            this.animIzquierda = new Animation<>(this.animDerecha.getFrameDuration(), frames.toArray(new TextureRegion[0]));
-            this.animIzquierda.setPlayMode(this.animDerecha.getPlayMode());
-        }
-
-        // animacion ataque
-        if (this.animAtaqueDerecha != null && this.animAtaqueIzquierda == null) {
-            ArrayList<TextureRegion> frames = new ArrayList<>();
-            for (TextureRegion tr : this.animAtaqueDerecha.getKeyFrames()) {
-                TextureRegion r = new TextureRegion(tr);
-                r.flip(true, false);
-                frames.add(r);
-            }
-            this.animAtaqueIzquierda = new Animation<>(this.animAtaqueDerecha.getFrameDuration(), frames.toArray(new TextureRegion[0]));
-            this.animAtaqueIzquierda.setPlayMode(this.animAtaqueDerecha.getPlayMode());
-        }
-
-        // frame muerte
-        if (this.frameMuerte != null) {
-            // opcional: si no tenés versión izquierda y querés usar la misma (no estrictamente necesario)
-        }
-    }
 
     public void cargarUbicaciones(float x, float y) {
         super.setX(x);
@@ -162,10 +118,7 @@ public abstract class Personaje extends Actor {
             }
         }, 8);
     }
-
-    // ---------------------------
-    // ANIMACIONES CORREGIDAS 👇
-    // ---------------------------
+    
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (this.vida <= 0) {
@@ -226,11 +179,7 @@ public abstract class Personaje extends Actor {
             this.estadoTiempo = 0f;
         }
     }
-
-    // ---------------------------
-    // RESTO DEL CÓDIGO IGUAL 👇
-    // ---------------------------
-
+    
     public void atacar(float delta) {
         if (this.tipoAtaque == TipoAtaque.MELEE) {
             if (this.estaAtacando) {
@@ -247,7 +196,6 @@ public abstract class Personaje extends Actor {
                         (!this.mirandoDerecha && this.animAtaqueIzquierda.isAnimationFinished(this.tiempoAtaque))) {
                     this.estaAtacando = false;
                     this.tiempoAtaque = 0f;
-                    this.disparoRealizado = false;
                 }
             }
         }
