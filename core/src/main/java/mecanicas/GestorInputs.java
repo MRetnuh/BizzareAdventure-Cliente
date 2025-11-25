@@ -27,13 +27,13 @@ public class GestorInputs {
                 saltar,
                 atacar
             );
-            hiloCliente.sendMessage(mensaje);
+            hiloCliente.enviarMensaje(mensaje);
         }
 
         // Limpiar los ataques/acciones de botón único
         if (atacar) {inputController.setAtacarFalso1();}
         if (inputController.getOpciones1()) {
-        	hiloCliente.sendMessage("DetenerEnJuego");
+        	hiloCliente.enviarMensaje("DetenerEnJuego");
         	Opciones opciones = new Opciones(juego, partidaActual, musicaPartida, true);
         	opciones.SetHiloCliente(hiloCliente);
         	juego.setScreen(opciones);

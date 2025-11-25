@@ -63,11 +63,10 @@ public class Partida implements Screen, GameController {
     	 if (!this.juegoEmpezado) {   
     		 	this.JUEGO.setScreen(new PantallaEspera(this.JUEGO, this.hiloCliente, this));
     	        this.hiloCliente.start();
-    	        this.hiloCliente.sendMessage("Conectado");
+    	        this.hiloCliente.enviarMensaje("Conectado");
     	     
     	    }
 
-    	    // IMPORTANTE: volver a darle control de input a Partida
     	    if (this.inputController != null) {
     	        Gdx.input.setInputProcessor(this.inputController);
     	    }
@@ -347,7 +346,7 @@ public class Partida implements Screen, GameController {
 	        String siguiente = datos[2];
 	        this.JUEGO.setScreen(new NivelSuperado(nivelAnterior, this.JUEGO, siguiente, this));
 	    	this.nivelActual = this.niveles[Integer.parseInt(datos[3])];
-	    	this.hiloCliente.sendMessage("DetenerEnJuego");
+	    	this.hiloCliente.enviarMensaje("DetenerEnJuego");
 	    	this.gestorNiveles = new GestorNiveles(this.JUEGO, this.niveles, this.nivelActual);
 	    	this.gestorNiveles.inicializarNivel(this.JUGADORES, this.JUGADOR1, this.JUGADOR2, this.stage); }); 
 	}

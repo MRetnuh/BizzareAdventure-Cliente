@@ -73,7 +73,7 @@ public class Opciones implements Screen {
             @Override
             public void run() {
             	  if(partidaEmpezada) {
-            	  hiloCliente.sendMessage("ActivarEnJuego");
+            	  hiloCliente.enviarMensaje("ActivarEnJuego");
             	  }
             	  JUEGO.setScreen(screenAnterior);
             	  

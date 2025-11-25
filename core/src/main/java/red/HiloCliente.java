@@ -20,7 +20,6 @@ public class HiloCliente extends Thread {
     private GameController gameController;
     private boolean conexionEntreJugadores = false;
     private boolean enJuego = false;
-    // Control de timeout
     private long ultimaActividadServidor = System.currentTimeMillis();
     private final long TIMEOUT_SERVIDOR = 4000; 
 
@@ -149,7 +148,7 @@ public class HiloCliente extends Thread {
         }
     }
 
-    public void sendMessage(String message) {
+    public void enviarMensaje(String message) {
         byte[] byteMessage = message.getBytes();
         DatagramPacket packet = new DatagramPacket(byteMessage, byteMessage.length, this.ipServidor, this.servidorPort);
         try {
@@ -172,7 +171,7 @@ public class HiloCliente extends Thread {
     
     public void setEnJuego(boolean e) {
         this.enJuego = e;
-        sendMessage("ActivarEnJuego");
+        enviarMensaje("ActivarEnJuego");
     }
 
     private void desconectarPorTimeout() {
