@@ -20,14 +20,12 @@ import estilos.ListenerBotonTexto;
 import io.github.some.Principal;
 
 public class ConfiguracionVolumen implements Screen {
-	private Screen screenAnterior;
     private final Game JUEGO;
     private Stage stage;
     private Skin skin;
     private Musica musicaConfig;
     private Opciones opciones;
-    public ConfiguracionVolumen(Game juego, Screen screenAnterior, Musica musica, Opciones opciones) {
-    	this.screenAnterior = screenAnterior;
+    public ConfiguracionVolumen(Game juego, Musica musica, Opciones opciones) {
         this.JUEGO = juego;
         this.musicaConfig = musica;
         this.stage = new Stage();

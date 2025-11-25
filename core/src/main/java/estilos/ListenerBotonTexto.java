@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class ListenerBotonTexto extends InputListener {
 
-    private final String textoNormal;
-    private final String textoHover;
-    private final Runnable accionClic; 
+    private String textoNormal;
+    private String textoHover;
+    private Runnable accionClic; 
     
     public ListenerBotonTexto(String textoNormal, Runnable accionClic) {
         this.textoNormal = textoNormal;

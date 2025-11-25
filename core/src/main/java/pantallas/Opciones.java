@@ -57,14 +57,14 @@ public class Opciones implements Screen {
         sonidoBtn.addListener(new ListenerBotonTexto("Sonido", new Runnable() {
             @Override
             public void run() {
-                JUEGO.setScreen(new ConfiguracionVolumen(JUEGO, screenAnterior, musicaOpciones, Opciones.this));
+                JUEGO.setScreen(new ConfiguracionVolumen(JUEGO, musicaOpciones, Opciones.this));
             }
         }));
         
         controlesBtn.addListener(new ListenerBotonTexto("Controles", new Runnable() {
             @Override
             public void run() {
-            	  JUEGO.setScreen(new Controles(JUEGO, screenAnterior, musicaOpciones, Opciones.this));
+            	  JUEGO.setScreen(new Controles(JUEGO, Opciones.this));
             }
         }));
         

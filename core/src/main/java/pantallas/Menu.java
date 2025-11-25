@@ -1,28 +1,19 @@
 package pantallas;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 
 import audios.Musica;
 import estilos.EstiloTexto;
 import estilos.ListenerBotonTexto;
-import io.github.some.Principal;
 import juego.Partida;
 
 public class Menu implements Screen {
@@ -37,7 +28,7 @@ public class Menu implements Screen {
         this.stage = new Stage();
         this.JUEGO = juego;
         this.musicaMenu = new Musica("Menu");
-        this.musicaMenu.show(this.stage);
+        this.musicaMenu.show();
     }
 
     @Override

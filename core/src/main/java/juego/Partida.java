@@ -1,10 +1,8 @@
 package juego;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -42,7 +40,6 @@ public class Partida implements Screen, GameController {
     private boolean nivelIniciado  = false;
     private GestorNiveles gestorNiveles;
     private HiloCliente hiloCliente;
-    private boolean finJuego = false;
     private boolean juegoEmpezado = false; 
     private int idJugadorLocal = 0;
     
@@ -75,15 +72,6 @@ public class Partida implements Screen, GameController {
 
     @Override
     public void render(float delta) {
-    	if (!this.juegoEmpezado) {
-            // Lógica para dibujar una pantalla de espera o un mensaje en el HUD
-           // Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-            //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            // Dibuja un mensaje: "Esperando al otro jugador..." usando tu Stage/SpriteBatch
-            this.stageHUD.act(delta);
-            this.stageHUD.draw();
-            return; // Detiene el resto del renderizado y el envío de inputs.
-        }
     	int jugadorLocalIndex = this.idJugadorLocal; // Asumiendo que el 1 es el local por ahora, esto debe ser dinámico
 
     	GestorInputs.procesarInputs(this.inputController,this.hiloCliente,jugadorLocalIndex, this.JUEGO, this, this.musicaPartida);

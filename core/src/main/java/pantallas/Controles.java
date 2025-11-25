@@ -1,39 +1,28 @@
 package pantallas;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import audios.Musica;
 import estilos.EstiloTexto;
 import estilos.ListenerBotonTexto;
-import io.github.some.Principal;
 
 public class Controles implements Screen {
-	private Screen screenAnterior;
     private final Game JUEGO;
     private Stage stage;
     private Skin skin;
-    private Musica musicaControles;
     private Opciones opciones;
-    public Controles(Game juego,  Screen screenAnterior, Musica musica, Opciones opciones) {
+    public Controles(Game juego, Opciones opciones) {
         this.JUEGO = juego;
-        this.musicaControles = musica;
-        this.screenAnterior = screenAnterior;
         this.opciones = opciones;
     }
 
@@ -55,7 +44,7 @@ public class Controles implements Screen {
         Label a = new Label("A: Moverse a la izquierda", EstiloTexto.ponerEstiloLabel(48, Color.LIGHT_GRAY));
         Label d = new Label("D: Moverse a la derecha", EstiloTexto.ponerEstiloLabel(48, Color.LIGHT_GRAY));
 
-        Label m = new Label("M: Atacar", EstiloTexto.ponerEstiloLabel(48, Color.LIGHT_GRAY));
+        Label m = new Label("K: Atacar", EstiloTexto.ponerEstiloLabel(48, Color.LIGHT_GRAY));
 
         Label p = new Label("P: Pausar / Opciones", EstiloTexto.ponerEstiloLabel(48, Color.LIGHT_GRAY));
 
