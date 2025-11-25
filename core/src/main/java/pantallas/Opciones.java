@@ -31,11 +31,13 @@ public class Opciones implements Screen {
     private Skin skin;
     private Musica musicaOpciones;
     private HiloCliente hiloCliente;
-    public Opciones(Game juego, Screen screenAnterior, Musica musica) {
+    private boolean partidaEmpezada;
+    public Opciones(Game juego, Screen screenAnterior, Musica musica, boolean partidaEmpezada) {
         this.JUEGO = juego;
         this.musicaOpciones = musica;
         this.screenAnterior = screenAnterior;
         this.stage = new Stage();
+        this.partidaEmpezada = partidaEmpezada;
     }
     
     @Override
@@ -55,14 +57,14 @@ public class Opciones implements Screen {
         sonidoBtn.addListener(new ListenerBotonTexto("Sonido", new Runnable() {
             @Override
             public void run() {
-                JUEGO.setScreen(new ConfiguracionVolumen(JUEGO, screenAnterior, musicaOpciones));
+                JUEGO.setScreen(new ConfiguracionVolumen(JUEGO, screenAnterior, musicaOpciones, Opciones.this));
             }
         }));
         
         controlesBtn.addListener(new ListenerBotonTexto("Controles", new Runnable() {
             @Override
             public void run() {
-            	  JUEGO.setScreen(new Controles(JUEGO, screenAnterior, musicaOpciones));
+            	  JUEGO.setScreen(new Controles(JUEGO, screenAnterior, musicaOpciones, Opciones.this));
             }
         }));
         
@@ -70,8 +72,11 @@ public class Opciones implements Screen {
         volverBtn.addListener(new ListenerBotonTexto("Volver", new Runnable() {
             @Override
             public void run() {
-            	  JUEGO.setScreen(screenAnterior);
+            	  if(partidaEmpezada) {
             	  hiloCliente.sendMessage("ActivarEnJuego");
+            	  }
+            	  JUEGO.setScreen(screenAnterior);
+            	  
             }
         }));
         

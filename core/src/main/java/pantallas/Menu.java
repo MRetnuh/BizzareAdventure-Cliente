@@ -68,7 +68,7 @@ public class Menu implements Screen {
         opcionesBtn.addListener(new ListenerBotonTexto("Opciones", new Runnable() {
             @Override
             public void run() {
-                JUEGO.setScreen(new Opciones(JUEGO, Menu.this, musicaMenu));
+                JUEGO.setScreen(new Opciones(JUEGO, Menu.this, musicaMenu, false));
             }
         }));
 

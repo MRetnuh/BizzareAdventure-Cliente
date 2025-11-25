@@ -34,7 +34,7 @@ public class GestorInputs {
         if (atacar) {inputController.setAtacarFalso1();}
         if (inputController.getOpciones1()) {
         	hiloCliente.sendMessage("DetenerEnJuego");
-        	Opciones opciones = new Opciones(juego, partidaActual, musicaPartida);
+        	Opciones opciones = new Opciones(juego, partidaActual, musicaPartida, true);
         	opciones.SetHiloCliente(hiloCliente);
         	juego.setScreen(opciones);
         	inputController.setOpcionesFalso1();}

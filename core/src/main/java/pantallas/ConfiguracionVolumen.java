@@ -25,12 +25,13 @@ public class ConfiguracionVolumen implements Screen {
     private Stage stage;
     private Skin skin;
     private Musica musicaConfig;
-    
-    public ConfiguracionVolumen(Game juego, Screen screenAnterior, Musica musica) {
+    private Opciones opciones;
+    public ConfiguracionVolumen(Game juego, Screen screenAnterior, Musica musica, Opciones opciones) {
     	this.screenAnterior = screenAnterior;
         this.JUEGO = juego;
         this.musicaConfig = musica;
         this.stage = new Stage();
+        this.opciones = opciones;
     }
 
     @Override
@@ -58,7 +59,7 @@ public class ConfiguracionVolumen implements Screen {
         volverBtn.addListener(new ListenerBotonTexto("Volver", new Runnable() {
             @Override
             public void run() {
-            	JUEGO.setScreen(new Opciones(JUEGO, screenAnterior, musicaConfig));
+            	JUEGO.setScreen(opciones);
             }
         }));
         
