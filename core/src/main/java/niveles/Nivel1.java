@@ -22,7 +22,7 @@ public class Nivel1 extends NivelBase {
 
     @Override
     public void crearEnemigos() {
-        this.enemigos.clear(); 
+        super.enemigos.clear(); 
 
         Object[][] enemigosDatos = {
             {"enemigo1", TipoEnemigo.TIRADOR, 700f, 928f},

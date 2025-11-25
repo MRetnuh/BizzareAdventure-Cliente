@@ -8,9 +8,9 @@ public class Jugador {
 	private int id;
     private boolean partidaEmpezada = false;
     private Personaje personajeElegido;
-    private final Random r = new Random();
+    private Random r = new Random();
     private int indicePersonaje;
-    private final FabricaDePersonajes[] personajesDisponibles = FabricaDePersonajes.values();
+    private FabricaDePersonajes[] personajesDisponibles = FabricaDePersonajes.values();
     private FabricaDePersonajes elegido;
     
     public Jugador(int id) {
