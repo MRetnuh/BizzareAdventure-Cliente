@@ -54,11 +54,11 @@ public class PantallaError implements Screen {
         this.stage.act(delta);
         this.stage.draw();
 
-        tiempoTranscurrido += delta;
+        this.tiempoTranscurrido += delta;
 
-        // Pasados 5 segundos → cambiar pantalla
-        if (tiempoTranscurrido >= 3f) {
+        if (this.tiempoTranscurrido >= 3f) {
             this.hiloCliente.finalizar();
+            Gdx.app.exit();
         }
     }
 
