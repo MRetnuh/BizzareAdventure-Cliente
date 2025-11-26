@@ -25,10 +25,16 @@ public class Nivel2 extends NivelBase {
         this.enemigos.clear();
 
         Object[][] enemigosDatos = {
-                {"enemigo1", TipoEnemigo.PERSEGUIDOR, 950f, 928f},
-                {"enemigo2", TipoEnemigo.PERSEGUIDOR, 1000f, 928f},
-                {"enemigo3", TipoEnemigo.PESADO, 1730f, 800.60f},
-            };
+            {"enemigo1", TipoEnemigo.PERSEGUIDOR, 950f, 928f},
+            {"enemigo2", TipoEnemigo.PERSEGUIDOR, 1000f, 928f},
+            {"enemigo3", TipoEnemigo.PESADO, 1730f, 800.60f},
+            {"enemigo4", TipoEnemigo.TIRADOR, 2730f, 735f},
+            {"enemigo5", TipoEnemigo.PESADO, 2732f, 735f},
+            {"enemigo6", TipoEnemigo.PESADO, 2734f, 735f},
+            {"enemigo7", TipoEnemigo.TIRADOR, 2736f, 735f},
+            {"enemigo8", TipoEnemigo.PESADO, 3343f, 672.82f},
+            {"enemigo9", TipoEnemigo.PERSEGUIDOR, 3352f, 672.82f}
+        };
 
         for (Object[] datos : enemigosDatos) {
             String id = (String) datos[0];
@@ -39,7 +45,6 @@ public class Nivel2 extends NivelBase {
             if (!super.enemigosMuertos.contains(id)) {
                 EnemigoBase enemigo = null;
 
-                // MISMO ESTILO QUE NIVEL1
                 if (tipo == TipoEnemigo.PERSEGUIDOR) {
                     enemigo = new EnemigoPerseguidor(id, x, y);
                 } else if (tipo == TipoEnemigo.TIRADOR) {
