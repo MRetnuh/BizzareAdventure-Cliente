@@ -37,11 +37,11 @@ public enum FabricaDePersonajes {
             "imagenes/personajes/lufi/lufi_izquierda_moviendose_3.png"
     ),
     BOCCHI(
-            "Bocchi", 230, "EspadaCorte", 1, TipoAtaque.MELEE,
+            "Bocchi", 230, "EspadaCorte", 1, TipoAtaque.DISTANCIA,
             "imagenes/personajes/bocchi/bocchi_derecha_moviendose_",
             "imagenes/personajes/bocchi/bocchi_izquierda_moviendose_",
-            "imagenes/personajes/akame/ataque/akame_derecha_atacando_",
-            "imagenes/personajes/akame/ataque/akame_izquierda_atacando_",
+            "imagenes/personajes/bocchi/ataque/bocchi_derecha_atacando_",
+            "imagenes/personajes/bocchi/ataque/bocchi_izquierda_atacando_",
             "imagenes/personajes/bocchi/bocchi_derecha_moviendose_3.png",
             "imagenes/personajes/bocchi/bocchi_izquierda_moviendose_3.png", 4, 6,
             "imagenes/personajes/bocchi/bocchi_izquierda_moviendose_3.png"
@@ -54,6 +54,16 @@ public enum FabricaDePersonajes {
             "imagenes/personajes/seven/seven_izquierda_moviendo_3.png",
             "imagenes/personajes/seven/seven_derecha_moviendo_3.png", 4, 6,
             "imagenes/personajes/seven/seven_izquierda_moviendo_3.png"
+
+    ),
+    CHANGLI("Changli", 230, "EspadaCorte", 1, TipoAtaque.MELEE,
+            "imagenes/personajes/Changli/Changli_derecha_moviendose_",
+            "imagenes/personajes/Changli/Changli_izquierda_moviendose_",
+            "imagenes/personajes/akame/ataque/akame_derecha_atacando_",
+            "imagenes/personajes/akame/ataque/akame_izquierda_atacando_",
+            "imagenes/personajes/Changli/changli_derecha_(detenida).png",
+            "imagenes/personajes/Changli/changli_izquierda_(detenida)png", 4, 6,
+            "imagenes/personajes/Changli/changli_izquierda_(detenida).png"
 
     );
 
@@ -71,7 +81,7 @@ public enum FabricaDePersonajes {
     FabricaDePersonajes(String nombre, int velocidad, String nombreAtaque, int vida,TipoAtaque tipoAtaque,
                         String rutaMovDerecha, String rutaMovIzquierda,
                         String rutaAtaqueDerecha, String rutaAtaqueIzquierda,
-                        String rutaQuietoDerecha, String rutaQuietoIzquierda, int cantSpriteMovimiento, int cantSpriteAtaque, 
+                        String rutaQuietoDerecha, String rutaQuietoIzquierda, int cantSpriteMovimiento, int cantSpriteAtaque,
                         String rutaMuerte) {
         this.nombre = nombre;
         this.velocidad = velocidad;
