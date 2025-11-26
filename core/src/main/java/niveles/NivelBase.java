@@ -22,16 +22,18 @@ public abstract class NivelBase {
     private int anchoMapa;
     private int alturaMapa;
     private Set<String> cajasDestruidas = new HashSet<>();
-   
+    private int indiceNivel;
+    
     protected Set<String> enemigosMuertos = new HashSet<>(); 
     protected List<EnemigoBase> enemigos = new ArrayList<>();
     protected float inicioX1, inicioY1;
     protected float inicioX2, inicioY2;
     
     
-    public NivelBase(String nombreNivel, String nombreMapa) {
+    public NivelBase(String nombreNivel, String nombreMapa, int indiceNivel) {
         this.nombreMapa = nombreMapa;
         this.nombreNivel = nombreNivel;
+        this.indiceNivel = indiceNivel;
         cargarMapa();
         definirPosicionesIniciales(); 
     }
@@ -82,4 +84,5 @@ public abstract class NivelBase {
     public float getInicioX2() { return this.inicioX2; }
     public float getInicioY2() { return this.inicioY2; }
     public String getNombreNivel()  { return this.nombreNivel; }
+    public int getIndiceNivel() {return this.indiceNivel;}
 }

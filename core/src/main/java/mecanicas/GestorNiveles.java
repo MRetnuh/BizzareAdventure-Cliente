@@ -13,12 +13,13 @@ public class GestorNiveles {
     private final Game JUEGO;
     private final NivelBase[] niveles;
     private NivelBase nivelActual;
-    private int indiceNivelActual = 0;
+    private int indiceNivelActual;
 
     public GestorNiveles(Game juego, NivelBase[] niveles, NivelBase nivelActual) {
         this.JUEGO = juego;
         this.niveles = niveles;
         this.nivelActual = nivelActual;
+        this.indiceNivelActual = this.nivelActual.getIndiceNivel();
     }
  
     public void inicializarNivel(Jugador[] jugadores, int jugador1, int jugador2,

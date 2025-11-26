@@ -9,7 +9,7 @@ import enemigos.TipoEnemigo;
 public class Nivel2 extends NivelBase {
 
     public Nivel2() {
-        super("Nivel 2", "mapacorregido.tmx");
+        super("Nivel 2", "mapacorregido.tmx", 1);
     }
 
     @Override
@@ -25,10 +25,10 @@ public class Nivel2 extends NivelBase {
         this.enemigos.clear();
 
         Object[][] enemigosDatos = {
-            {"enemigo1", TipoEnemigo.TIRADOR, 1000f, 928f},
-            {"enemigo2", TipoEnemigo.TIRADOR, 1200f, 928f},
-            {"enemigo3", TipoEnemigo.TIRADOR, 1400f, 928f},
-        };
+                {"enemigo1", TipoEnemigo.PERSEGUIDOR, 950f, 928f},
+                {"enemigo2", TipoEnemigo.PERSEGUIDOR, 1000f, 928f},
+                {"enemigo3", TipoEnemigo.PESADO, 1730f, 800.60f},
+            };
 
         for (Object[] datos : enemigosDatos) {
             String id = (String) datos[0];
