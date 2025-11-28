@@ -12,7 +12,7 @@ import personajes.Personaje;
 import personajes.TipoAtaque;
 
 public class EnemigoPerseguidor extends EnemigoBase {
-	
+
 
     public EnemigoPerseguidor(String nombre, float x, float y) {
         super(nombre, 100, "EspadaCorte", 1, TipoEnemigo.PERSEGUIDOR);
@@ -20,27 +20,27 @@ public class EnemigoPerseguidor extends EnemigoBase {
         super.puntoInicialX = x;
     }
 
-    @Override
     protected void cargarTexturas() {
         Array<TextureRegion> framesDerecha = new Array<>();
         for (int i = 1; i <= 4; i++) {
             framesDerecha.add(new TextureRegion(new Texture(Gdx.files.internal(
-                    "imagenes/personajes/leone/leone_derecha_moviendose_" + i + ".png"))));
+                    "imagenes/personajes/enemigo_perseguidor/perro_derecha_" + i + ".png"))));
         }
         super.animDerecha = new Animation<>(0.1f, framesDerecha, Animation.PlayMode.LOOP);
 
         Array<TextureRegion> framesIzquierda = new Array<>();
         for (int i = 1; i <= 4; i++) {
             framesIzquierda.add(new TextureRegion(new Texture(Gdx.files.internal(
-                    "imagenes/personajes/leone/leone_izquierda_moviendose_" + i + ".png"))));
+                    "imagenes/personajes/enemigo_perseguidor/perro_izquierda_" + i + ".png"))));
         }
         super.animIzquierda = new Animation<>(0.1f, framesIzquierda, Animation.PlayMode.LOOP);
 
         super.quietaDerecha = new TextureRegion(new Texture(Gdx.files.internal(
-                "imagenes/personajes/leone/leone_derecha_(detenida).png")));
+                "imagenes/personajes/enemigo_perseguidor/perro_izquierda_1.png")));
         super.quietaIzquierda = new TextureRegion(new Texture(Gdx.files.internal(
-                "imagenes/personajes/leone/leone_izquierda_(detenida).png")));
+                "imagenes/personajes/enemigo_perseguidor/perro_izquierda_1.png")));
     }
+
     @Override
     public void actualizarIA(float delta, Personaje jugador1, Personaje jugador2, float volumen, NivelBase nivel){
         super.seleccionarObjetivo(jugador1, jugador2);
@@ -57,7 +57,7 @@ public class EnemigoPerseguidor extends EnemigoBase {
     private void perseguir(float delta, NivelBase nivel) {
         if (super.objetivoActual == null) {
         	return;
-        } 
+        }
         float direccion = super.objetivoActual.getX() > getX() ? 1 : -1;
         float nuevaX = getX() + direccion * super.velocidad * delta;
 
