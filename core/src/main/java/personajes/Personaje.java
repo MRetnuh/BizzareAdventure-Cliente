@@ -108,15 +108,6 @@ public abstract class Personaje extends Actor {
                         Actions.scaleTo(2.5f, 2.5f, 2f, Interpolation.pow2Out)
                 )
         ));
-
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-            	hiloCliente.finalizar();
-                Gdx.app.exit();
-                
-            }
-        }, 8);
     }
     
     @Override
