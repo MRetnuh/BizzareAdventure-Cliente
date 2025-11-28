@@ -59,10 +59,10 @@ public enum FabricaDePersonajes {
     CHANGLI("Changli", 230, "EspadaCorte", 1, TipoAtaque.MELEE,
             "imagenes/personajes/Changli/Changli_derecha_moviendose_",
             "imagenes/personajes/Changli/Changli_izquierda_moviendose_",
-            "imagenes/personajes/akame/ataque/akame_derecha_atacando_",
-            "imagenes/personajes/akame/ataque/akame_izquierda_atacando_",
+            "imagenes/personajes/Changli/ataque/changli_ataque_derecha_",
+            "imagenes/personajes/Changli/ataque/changli_ataque_izquierda_",
             "imagenes/personajes/Changli/changli_derecha_detenida.png",
-            "imagenes/personajes/Changli/changli_izquierda_detenida.png", 4, 6,
+            "imagenes/personajes/Changli/changli_izquierda_detenida.png", 4, 5,
             "imagenes/personajes/Changli/changli_izquierda_detenida.png"
     );
 
