@@ -22,11 +22,11 @@ public class Victoria implements Screen {
     private Stage stage;
     private Image imagen;
 
-    private Label texto1;  // cargo
-    private Label texto2;  // nombre
+    private Label texto1;  
+    private Label texto2;  
 
     private HiloCliente hiloCliente;
-    private int indice = 1;
+    private int indice = 0;  // AHORA EMPIEZA EN 0 (intro)
 
     public Victoria(Game game, HiloCliente hiloCliente) {
         this.game = game;
@@ -38,7 +38,7 @@ public class Victoria implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
 
-        imagen = new Image(getDrawable(indice));
+        imagen = new Image();
         imagen.setFillParent(true);
         imagen.getColor().a = 0;
 
@@ -72,14 +72,32 @@ public class Victoria implements Screen {
         stage.draw();
     }
 
-    /** Fade In → Espera → Fade Out */
     private void mostrarAnimacion(){
 
+        // INTRO (0) y OUTRO (6 y 7): solo texto
+        if (indice == 0 || indice == 6 || indice == 7) {
+
+            texto1.addAction(Actions.sequence(
+                    Actions.fadeIn(3f),
+                    Actions.delay(3f),
+                    Actions.fadeOut(3f)
+            ));
+
+            texto2.addAction(Actions.sequence(
+                    Actions.fadeIn(3f),
+                    Actions.delay(3f),
+                    Actions.fadeOut(3f),
+                    Actions.run(this::siguiente)
+            ));
+            return;
+        }
+
+        // IMÁGENES (1–5)
         imagen.addAction(Actions.sequence(
                 Actions.fadeIn(3f),
                 Actions.delay(3f),
                 Actions.fadeOut(3f),
-                Actions.run(this::siguienteImagen)
+                Actions.run(this::siguiente)
         ));
 
         texto1.addAction(Actions.sequence(
@@ -95,41 +113,73 @@ public class Victoria implements Screen {
         ));
     }
 
-    private void siguienteImagen(){
+    private void siguiente(){
         indice++;
 
-        if (indice > 5){
+        // OUTRO
+        if (indice == 6){
+            texto1.setText("Gracias por jugar");
+            texto2.setText("");
+            centrar();
+            mostrarAnimacion();
             return;
         }
 
-        imagen.setDrawable(getDrawable(indice));
+        if (indice == 7){
+            texto1.setText("Profesor, por favor apruebenos");
+            texto2.setText("");
+            centrar();
+            mostrarAnimacion();
+            return;
+        }
+
+        // FIN TOTAL CLIENTE (queda pantalla negra)
+        if (indice > 7){
+            return;
+        }
+
+        // INTRO O IMÁGENES
+        if (indice >= 1 && indice <= 5) {
+            imagen.setDrawable(getDrawable(indice));
+        }
+
         colocarTextos();
         mostrarAnimacion();
     }
 
+    private void centrar() {
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+        texto1.setAlignment(Align.center);
+        texto2.setAlignment(Align.center);
+
+        texto1.setPosition(w * 0.5f, h * 0.52f, Align.center);
+        texto2.setPosition(w * 0.5f, h * 0.45f, Align.center);
+    }
+
     private void colocarTextos(){
+
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
 
         texto1.setText("");
         texto2.setText("");
 
-        float ancho = Gdx.graphics.getWidth();
-        float alto  = Gdx.graphics.getHeight();
-
         switch(indice){
 
-            // ------------------------------------------------------------------------
+            case 0: // INTRO --------------------------
+                texto1.setText("Un juego hecho por");
+                texto2.setText("3 pibes de la 35");
+                centrar();
+                break;
+
             case 1:
                 texto1.setText("Programador y desarrollador de sonido:");
                 texto2.setText("Eduardo Orsi");
-
-                texto1.setAlignment(Align.center);
-                texto2.setAlignment(Align.center);
-
-                texto1.setPosition(ancho * 0.50f, alto * 0.57f, Align.center);
-                texto2.setPosition(ancho * 0.50f, alto * 0.50f, Align.center);
+                centrar();
                 break;
 
-            // ------------------------------------------------------------------------
             case 2:
                 texto1.setText("Desarrollador de personajes:");
                 texto2.setText("Eynar Mejia");
@@ -137,45 +187,26 @@ public class Victoria implements Screen {
                 texto1.setAlignment(Align.left);
                 texto2.setAlignment(Align.left);
 
-                texto1.setPosition(ancho * 0.0000001f, alto * 0.82f, Align.center);
-                texto2.setPosition(ancho * 0.0000001f, alto * 0.75f, Align.center);
-
+                texto1.setPosition(w * 0.0000001f, h * 0.82f, Align.center);
+                texto2.setPosition(w * 0.0000001f, h * 0.75f, Align.center);
                 break;
 
-            // ------------------------------------------------------------------------
             case 3:
                 texto1.setText("Co-Programador:");
                 texto2.setText("Kevin De Groote");
-
-                texto1.setAlignment(Align.center);
-                texto2.setAlignment(Align.center);
-
-                texto1.setPosition(ancho * 0.50f, alto * 0.57f, Align.center);
-                texto2.setPosition(ancho * 0.50f, alto * 0.50f, Align.center);
+                centrar();
                 break;
 
-            // ------------------------------------------------------------------------
             case 4:
                 texto1.setText("Creador de la portada:");
                 texto2.setText("Juan Benito Suarez Dominguez (Lokevas)");
-
-                texto1.setAlignment(Align.center);
-                texto2.setAlignment(Align.center);
-
-                texto1.setPosition(ancho * 0.50f, alto * 0.57f, Align.center);
-                texto2.setPosition(ancho * 0.50f, alto * 0.50f, Align.center);
+                centrar();
                 break;
 
-            // ------------------------------------------------------------------------
             case 5:
                 texto1.setText("Apoyo Emocional:");
                 texto2.setText("Bang (usuario de Discord)");
-
-                texto1.setAlignment(Align.center);
-                texto2.setAlignment(Align.center);
-
-                texto1.setPosition(ancho * 0.50f, alto * 0.57f, Align.center);
-                texto2.setPosition(ancho * 0.50f, alto * 0.50f, Align.center);
+                centrar();
                 break;
         }
     }
@@ -184,9 +215,5 @@ public class Victoria implements Screen {
     @Override public void pause() {}
     @Override public void resume() {}
     @Override public void hide() {}
-
-    @Override
-    public void dispose() {
-        stage.dispose();
-    }
+    @Override public void dispose() { stage.dispose(); }
 }
