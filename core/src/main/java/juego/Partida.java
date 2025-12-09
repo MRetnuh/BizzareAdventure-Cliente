@@ -384,6 +384,7 @@ public class Partida implements Screen, GameController {
 	public void ganarPartida() {
 		this.hiloCliente.setEnJuego(false);
 		  Gdx.app.postRunnable(() -> {
+			  this.musicaPartida.cambiarMusica("Creditos");
 			  this.JUEGO.setScreen(new Victoria(this.JUEGO, this.hiloCliente));
 		  });
 		
