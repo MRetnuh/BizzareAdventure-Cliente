@@ -51,8 +51,8 @@ public enum FabricaDePersonajes {
             "imagenes/personajes/seven/seven_izquierda_moviendo_",
             "imagenes/personajes/akame/ataque/akame_derecha_atacando_",
             "imagenes/personajes/akame/ataque/akame_izquierda_atacando_",
-            "imagenes/personajes/seven/seven_izquierda_moviendo_3.png",
-            "imagenes/personajes/seven/seven_derecha_moviendo_3.png", 4, 6,
+            "imagenes/personajes/seven/seven_derecha_moviendo_4.png",
+            "imagenes/personajes/seven/seven_izquierda_moviendo_4.png", 4, 6,
             "imagenes/personajes/seven/seven_izquierda_moviendo_3.png"
 
     ),
